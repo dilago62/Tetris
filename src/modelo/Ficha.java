@@ -4,10 +4,19 @@
  */
 package modelo;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author a22davidil
  */
-public class Ficha {
+public abstract class Ficha {
+    public ArrayList <Cadrado> cadrados = new ArrayList();
+
+    public Ficha() {
+        
+    }
+    
+    
     
 }

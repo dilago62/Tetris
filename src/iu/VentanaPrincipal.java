@@ -4,6 +4,8 @@
  */
 package iu;
 
+import modelo.Xogo;
+
 /**
  *
  * @author a22davidil
@@ -13,6 +15,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form VentanaPrincipal
      */
+    Xogo xogo = new Xogo();
     public VentanaPrincipal() {
         initComponents();
     }
