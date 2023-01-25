@@ -9,5 +9,5 @@ package modelo;
  * @author a22davidil
  */
 public class Xogo {
-    
+    int ladoCadrado = 30;
 }
