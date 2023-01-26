@@ -30,7 +30,7 @@ public class Xogo {
             
         }*/
     }
-    public void engadirFichaCoChan(){
+    public void engadirFichaAoChan(){
         cadradosChan.addAll(fichaActual.cadrados);
         fichaActual=null;
         borrarLina();
