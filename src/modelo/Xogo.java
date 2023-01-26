@@ -39,7 +39,13 @@ public class Xogo {
     }
     
     public void borrarLina(){
+        int linea;
         ordenar();
+        ArrayList temporal = cadradosChan;
+        for(linea=20; linea>0; linea--){
+            
+            
+        }
     }
     private void ordenar(){
         Cadrado temporal;
