@@ -26,6 +26,14 @@ public class Cadrado {
         lblCadrado.setBackground(corRecheo);
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
     public String getCoordenadas(){
         return x+" "+y;
     }
