@@ -5,6 +5,8 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Iterator;
 
 /**
  *
@@ -37,7 +39,19 @@ public class Xogo {
     }
     
     public void borrarLina(){
-        
+        ordenar();
     }
-
+    private void ordenar(){
+        Cadrado temporal;
+        for (int contador = 0; contador<cadradosChan.size()-1; contador++){
+            for (int contador2=contador+1; contador2<cadradosChan.size(); contador2++){
+                if (cadradosChan.get(contador).getX()>cadradosChan.get(contador2).getY()){
+                    temporal=cadradosChan.get(contador);
+                    cadradosChan.remove(temporal);
+                    cadradosChan.set(contador, cadradosChan.get(contador2));
+                    cadradosChan.set(contador2, temporal);
+                }
+            }
+        }
+    }
 }
