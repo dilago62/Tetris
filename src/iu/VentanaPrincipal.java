@@ -4,12 +4,16 @@
  */
 package iu;
 
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import java.util.Random;
 import javax.swing.border.Border;
+=======
+import modelo.Xogo;
+
 
 /**
  *
@@ -20,6 +24,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form VentanaPrincipal
      */
+    Xogo xogo = new Xogo();
     public VentanaPrincipal() {
         initComponents();
         jPanel2.setSize(500, 1000);
