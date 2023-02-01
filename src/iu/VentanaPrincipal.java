@@ -52,7 +52,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         jFrame1.setMinimumSize(new java.awt.Dimension(600, 1000));
-        jFrame1.setPreferredSize(new java.awt.Dimension(600, 1000));
 
         jPanel2.setPreferredSize(new java.awt.Dimension(300, 600));
 
@@ -85,7 +84,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(600, 1000));
 
         jButton2.setText("Iniciar Partida");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
