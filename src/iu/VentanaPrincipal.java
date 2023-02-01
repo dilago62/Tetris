@@ -10,6 +10,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 import java.util.Random;
 import javax.swing.border.Border;
+import java.util.*;
 
 /**
  *
@@ -17,12 +18,32 @@ import javax.swing.border.Border;
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
 
+    private void setOpaque(boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     /**
      * Creates new form VentanaPrincipal
      */
-    public VentanaPrincipal() {
+    public class Imagen extends javax.swing.JPanel {
+
+        public Imagen() {
+            this.setSize(320, 641);
+        }
+
+        public void paint(Graphics grafico) {
+            Dimension height = getSize();
+            ImageIcon Img = new ImageIcon(getClass().getResource("/Images/tetris1.png"));
+            grafico.drawImage(Img.getImage(),0 ,0, 320, 641, null);
+
+            setOpaque(false);
+            super.paintComponent(grafico);
+
+        }
+    }
+     public VentanaPrincipal() {
         initComponents();
-        jPanel2.setSize(500, 1000);
+      /*
         jPanel2.setLayout(new GridLayout(20, 10));
         for (int i = 0; i < 20 * 10; i++) {
             JPanel panel = new JPanel();
@@ -32,7 +53,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             borde = BorderFactory.createLineBorder(Color.BLACK);  ///se le pone un borde.
             panel.setBorder(borde);
             jPanel2.add(panel); ///Se agrega el panel a la cuadricula una vez que tiene color y borde.
-        }
+        }*/
+
     }
 
     /**
@@ -49,21 +71,28 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jToggleButton1 = new javax.swing.JToggleButton();
         jButton2 = new javax.swing.JButton();
 
-        jFrame1.setMinimumSize(new java.awt.Dimension(600, 1000));
-        jFrame1.setPreferredSize(new java.awt.Dimension(600, 1000));
+        jFrame1.setMinimumSize(new java.awt.Dimension(700, 900));
+        jFrame1.setPreferredSize(new java.awt.Dimension(700, 900));
+        jFrame1.setResizable(false);
+        jFrame1.setSize(new java.awt.Dimension(700, 900));
+        jFrame1.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setPreferredSize(new java.awt.Dimension(300, 600));
+        jPanel2.setMaximumSize(new java.awt.Dimension(320, 641));
+        jPanel2.setMinimumSize(new java.awt.Dimension(320, 641));
+        jPanel2.setPreferredSize(new java.awt.Dimension(320, 641));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 320, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGap(0, 641, Short.MAX_VALUE)
         );
+
+        jFrame1.getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 320, 641));
 
         jToggleButton1.setText("Pausa");
         jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -71,32 +100,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 jToggleButton1ActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
-        jFrame1.getContentPane().setLayout(jFrame1Layout);
-        jFrame1Layout.setHorizontalGroup(
-            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jFrame1Layout.createSequentialGroup()
-                .addContainerGap(125, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
-                .addComponent(jToggleButton1)
-                .addGap(69, 69, 69))
-        );
-        jFrame1Layout.setVerticalGroup(
-            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jFrame1Layout.createSequentialGroup()
-                .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jFrame1Layout.createSequentialGroup()
-                        .addGap(74, 74, 74)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jFrame1Layout.createSequentialGroup()
-                        .addGap(307, 307, 307)
-                        .addComponent(jToggleButton1)))
-                .addContainerGap(326, Short.MAX_VALUE))
-        );
+        jFrame1.getContentPane().add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 120, -1, -1));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(500, 1000));
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton2.setText("Iniciar Partida");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -104,31 +113,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(235, 235, 235)
-                .addComponent(jButton2)
-                .addContainerGap(263, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(234, 234, 234)
-                .addComponent(jButton2)
-                .addContainerGap(743, Short.MAX_VALUE))
-        );
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, 180, 110));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+
         jFrame1.setVisible(true);
-        
+
+        Imagen Imagen = new Imagen();
+        jPanel2.add(Imagen);
+        jPanel2.repaint();
+
 // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
