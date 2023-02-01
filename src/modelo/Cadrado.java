@@ -12,10 +12,10 @@ import javax.swing.JLabel;
  * @author a22davidil
  */
 public class Cadrado {
-    int x;
-    int y;
-    Color corRecheo;
-    JLabel lblCadrado;
+    public int x;
+    public int y;
+    public Color corRecheo;
+    public JLabel lblCadrado;
 
     public Cadrado(int x, int y, Color corRecheo) {
         this.x = x;
