@@ -12,7 +12,8 @@ import java.awt.Color;
  */
 public class FichaCadrada extends Ficha{
 
-    public FichaCadrada() {
+    public FichaCadrada(Xogo xogo) {
+        super(xogo);
         Cadrado cadrado0 = new Cadrado(120,0, Color.YELLOW);
         Cadrado cadrado1 = new Cadrado(120,30, Color.YELLOW);
         Cadrado cadrado2 = new Cadrado(150,30, Color.YELLOW);
@@ -21,6 +22,7 @@ public class FichaCadrada extends Ficha{
         cadrados.add(cadrado1);
         cadrados.add(cadrado2);
         cadrados.add(cadrado3);
+        
     }
     
 }

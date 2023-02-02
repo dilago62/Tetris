@@ -12,25 +12,13 @@ import java.util.Iterator;
  * @author a22davidil
  */
 public abstract class Ficha {
-    public ArrayList <Cadrado> cadrados = new ArrayList();
-    private Iterator <Cadrado> iterCadrados;
+
+    public ArrayList<Cadrado> cadrados = new ArrayList();
+    private Iterator<Cadrado> iterCadrados;
     public Xogo xogo;
-    
+
     public Ficha(Xogo xogo) {
-        this.xogo=xogo;
+        this.xogo = xogo;
     }
-    
-    public boolean moverDereita(){
-        
-        
-    }
-    
-    private boolean comprobarPosicion(int x, int y){
-        iterCadrados = cadrados.iterator();
-        while(iterCadrados.hasNext()){
-            Cadrado temporal = iterCadrados.next();
-            xogo.ePosicionValida(temporal.getX()+xogo.ladoCadrado, temporal.getY());
-        }
-    }
-    
+
 }

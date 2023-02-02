@@ -4,6 +4,7 @@
  */
 package modelo;
 
+import iu.VentanaPrincipal;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -22,13 +23,14 @@ public class Xogo {
     public ArrayList<Cadrado> cadradosChan = new ArrayList();
     public Ficha fichaActual;
     private Iterator <Cadrado> cadrados;
+    public VentanaPrincipal ventana;
     
     
     public Xogo() {
     }
 
     public void xenerarNovaFicha() {
-        fichaActual = new FichaCadrada();
+        fichaActual = new FichaCadrada(ventana.xogo);
         /*int pieza = (int) (Math.random()*4);
         if(pieza==1){
             
