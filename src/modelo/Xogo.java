@@ -14,14 +14,16 @@ import java.util.Iterator;
  */
 public class Xogo {
 
-    int ladoCadrado = 30;
-    int maxX = 300;
-    int maxY = 600;
-    boolean pausa;
-    int numeroLineas = 0;
-    ArrayList<Cadrado> cadradosChan = new ArrayList();
-    Ficha fichaActual;
-
+    public int ladoCadrado = 30;
+    public int maxX = 300;
+    public int maxY = 600;
+    public boolean pausa;
+    public int numeroLineas = 0;
+    public ArrayList<Cadrado> cadradosChan = new ArrayList();
+    public Ficha fichaActual;
+    private Iterator <Cadrado> cadrados;
+    
+    
     public Xogo() {
     }
 
@@ -32,6 +34,7 @@ public class Xogo {
             
         }*/
     }
+    
     public void engadirFichaAoChan(){
         cadradosChan.addAll(fichaActual.cadrados);
         fichaActual=null;
@@ -47,6 +50,38 @@ public class Xogo {
             
         }
     }
+    
+    public boolean ePosicionValida(int x, int y){
+        if (!cadradoEnX(x) && !cadradoEnY(y) && x<maxX && y<maxY){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    
+    private boolean cadradoEnX (int x){
+        boolean ocupado = false;
+        cadrados = cadradosChan.iterator();
+        while (cadrados.hasNext() && ocupado==false){ 
+            if (cadrados.next().getX()==x){
+                ocupado=true;
+            }
+        }
+        return ocupado;
+    }
+    
+    private boolean cadradoEnY (int y){
+        boolean ocupado = false;
+        cadrados = cadradosChan.iterator();
+        while (cadrados.hasNext() && ocupado==false){ 
+            if (cadrados.next().getY()==y){
+                ocupado=true;
+            }
+        }
+        return ocupado;
+    }
+    
     private void ordenar(){
         Cadrado temporal;
         for (int contador = 0; contador<cadradosChan.size()-1; contador++){

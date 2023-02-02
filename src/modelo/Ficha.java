@@ -5,6 +5,7 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  *
@@ -12,11 +13,24 @@ import java.util.ArrayList;
  */
 public abstract class Ficha {
     public ArrayList <Cadrado> cadrados = new ArrayList();
-
-    public Ficha() {
+    private Iterator <Cadrado> iterCadrados;
+    public Xogo xogo;
+    
+    public Ficha(Xogo xogo) {
+        this.xogo=xogo;
+    }
+    
+    public boolean moverDereita(){
+        
         
     }
     
-    
+    private boolean comprobarPosicion(int x, int y){
+        iterCadrados = cadrados.iterator();
+        while(iterCadrados.hasNext()){
+            Cadrado temporal = iterCadrados.next();
+            xogo.ePosicionValida(temporal.getX()+xogo.ladoCadrado, temporal.getY());
+        }
+    }
     
 }
