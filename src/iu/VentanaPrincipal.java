@@ -17,6 +17,7 @@ import modelo.Xogo;
  *
  * @author a22alejandrofc
  */
+/*hola*/
 public class VentanaPrincipal extends javax.swing.JFrame {
 
      private void setOpaque(boolean b) {
