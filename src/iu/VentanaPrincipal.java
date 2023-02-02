@@ -30,13 +30,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
       public class Imagen extends javax.swing.JPanel {
 
         public Imagen() {
-            this.setSize(320, 641);
+            this.setSize(320, 640);
         }
 
         public void paint(Graphics grafico) {
             Dimension height = getSize();
             ImageIcon Img = new ImageIcon(getClass().getResource("/Images/tetris1.png"));
-            grafico.drawImage(Img.getImage(),0 ,0, 320, 641, null);
+            grafico.drawImage(Img.getImage(),0 ,0, 320, 640, null);
 
             setOpaque(false);
             super.paintComponent(grafico);
