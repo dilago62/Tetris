@@ -11,6 +11,7 @@ import javax.swing.event.*;
 import java.util.Random;
 import javax.swing.border.Border;
 import java.util.*;
+import modelo.Cadrado;
 import modelo.Xogo;
 import modelo.Cadrado;
 import modelo.FichaCadrada;
@@ -84,9 +85,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
-        jFrame1.setMaximumSize(new java.awt.Dimension(700, 900));
         jFrame1.setMinimumSize(new java.awt.Dimension(700, 900));
-        jFrame1.setPreferredSize(new java.awt.Dimension(700, 900));
         jFrame1.setResizable(false);
 
         panelXogo.setMaximumSize(new java.awt.Dimension(320, 640));

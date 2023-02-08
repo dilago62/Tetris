@@ -28,6 +28,7 @@ public class Cadrado {
         lblCadrado = new JLabel();
         lblCadrado.setLocation(x, y);
 
+
     }
 
     public int getX() {
@@ -36,6 +37,11 @@ public class Cadrado {
 
     public int getY() {
         return y;
+
+        lblCadrado.setBackground(corRecheo);
+        lblCadrado.setOpaque(true);
+        lblCadrado.setSize(32,32);
+
     }
 
     public String getCoordenadas() {

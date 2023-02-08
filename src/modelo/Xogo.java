@@ -6,7 +6,6 @@ package modelo;
 
 import iu.VentanaPrincipal;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Iterator;
 
 
@@ -16,9 +15,9 @@ import java.util.Iterator;
  */
 public class Xogo {
 
-    public int ladoCadrado = 30;
-    public int maxX = 300;
-    public int maxY = 600;
+    public int ladoCadrado = 32;
+    public int maxX = 320;
+    public int maxY = 640;
     public boolean pausa;
     public int numeroLineas = 0;
     public ArrayList<Cadrado> cadradosChan = new ArrayList();
@@ -61,7 +60,7 @@ public class Xogo {
     }
     
     public boolean ePosicionValida(int x, int y){
-        if (!cadradoEnX(x) && !cadradoEnY(y) && x<maxX && y<maxY){
+        if (validar(x,y)){
             return true;
         }
         else {
@@ -69,11 +68,15 @@ public class Xogo {
         }
     }
     
+    public boolean validar(int x, int y){
+        return !cadradoEnX(x) && !cadradoEnY(y) && x<maxX && y<maxY && x>0 && y>0;
+    }
+    
     private boolean cadradoEnX (int x){
         boolean ocupado = false;
         cadrados = cadradosChan.iterator();
         while (cadrados.hasNext() && ocupado==false){ 
-            if (cadrados.next().getX()==x){
+            if (cadrados.next().x==x){
                 ocupado=true;
             }
         }
@@ -84,7 +87,7 @@ public class Xogo {
         boolean ocupado = false;
         cadrados = cadradosChan.iterator();
         while (cadrados.hasNext() && ocupado==false){ 
-            if (cadrados.next().getY()==y){
+            if (cadrados.next().y==y){
                 ocupado=true;
             }
         }
@@ -95,7 +98,7 @@ public class Xogo {
         Cadrado temporal;
         for (int contador = 0; contador<cadradosChan.size()-1; contador++){
             for (int contador2=contador+1; contador2<cadradosChan.size(); contador2++){
-                if (cadradosChan.get(contador).getX()>cadradosChan.get(contador2).getY()){
+                if (cadradosChan.get(contador).x>cadradosChan.get(contador2).y){
                     temporal=cadradosChan.get(contador);
                     cadradosChan.remove(temporal);
                     cadradosChan.set(contador, cadradosChan.get(contador2));
