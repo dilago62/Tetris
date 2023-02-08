@@ -24,14 +24,8 @@ public class Cadrado {
         lblCadrado = new JLabel();
         lblCadrado.setLocation(x, y);
         lblCadrado.setBackground(corRecheo);
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
+        lblCadrado.setOpaque(true);
+        lblCadrado.setSize(32,32);
     }
 
     public String getCoordenadas(){

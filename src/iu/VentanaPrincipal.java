@@ -11,6 +11,7 @@ import javax.swing.event.*;
 import java.util.Random;
 import javax.swing.border.Border;
 import java.util.*;
+import modelo.Cadrado;
 import modelo.Xogo;
 
 /**
@@ -62,9 +63,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jToggleButton2 = new javax.swing.JToggleButton();
         jButton1 = new javax.swing.JButton();
 
-        jFrame1.setMaximumSize(new java.awt.Dimension(700, 900));
         jFrame1.setMinimumSize(new java.awt.Dimension(700, 900));
-        jFrame1.setPreferredSize(new java.awt.Dimension(700, 900));
         jFrame1.setResizable(false);
 
         jPanel2.setMaximumSize(new java.awt.Dimension(320, 640));
@@ -116,7 +115,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(700, 900));
         setMinimumSize(new java.awt.Dimension(700, 900));
-        setPreferredSize(new java.awt.Dimension(700, 900));
         setResizable(false);
 
         jButton1.setText("Iniciar");
