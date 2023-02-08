@@ -20,5 +20,66 @@ public abstract class Ficha {
     public Ficha(Xogo xogo) {
         this.xogo = xogo;
     }
-
+    
+    public boolean moverDereita(){
+        if(validar('d')){
+            for(int contador = 0; contador<cadrados.size(); contador++){
+                cadrados.get(contador).x=+xogo.ladoCadrado;
+            }
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
+    public boolean moverEsquerda(){
+        if(validar('e')){
+            for(int contador = 0; contador<cadrados.size(); contador++){
+                cadrados.get(contador).x=+xogo.ladoCadrado;
+            }
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
+    public boolean moverAbaixo(){
+        if(validar('b')){
+            for(int contador = 0; contador<cadrados.size(); contador++){
+                cadrados.get(contador).x=+xogo.ladoCadrado;
+            }
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
+    public abstract boolean rotar();
+    
+    private boolean validar(char lado){
+        iterCadrados=cadrados.iterator();
+        while(iterCadrados.hasNext()){
+            Cadrado temporal = iterCadrados.next();
+            if(lado=='e'){
+                if(!xogo.ePosicionValida(temporal.x-xogo.ladoCadrado, temporal.y)){
+                    return false;
+                }
+            }
+            else if(lado=='d'){
+                if(!xogo.ePosicionValida(temporal.x+xogo.ladoCadrado, temporal.y)){
+                    return false;
+                }
+            }
+            else if(lado=='b'){
+                if(!xogo.ePosicionValida(temporal.x, temporal.y+xogo.ladoCadrado)){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
 }
