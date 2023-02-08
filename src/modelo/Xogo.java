@@ -8,6 +8,7 @@ import iu.VentanaPrincipal;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+
 /**
  *
  * @author a22davidil
@@ -25,12 +26,18 @@ public class Xogo {
     public VentanaPrincipal ventana;
     
     
-    public Xogo() {
+    public Xogo(VentanaPrincipal ventana) {
+       
+        this.ventana=ventana;
     }
 
     public void xenerarNovaFicha() {
         fichaActual = new FichaCadrada(ventana.xogo);
-        /*int pieza = (int) (Math.random()*4);
+         for (int i = 0; i < fichaActual.cadrados.size(); i++) {
+              ventana.pintarCadrado(fichaActual.cadrados.get(i).lblCadrado);
+         }
+        
+      /*  int pieza = (int) (Math.random()*4);
         if(pieza==1){
             
         }*/
