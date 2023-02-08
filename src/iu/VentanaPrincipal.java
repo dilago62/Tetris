@@ -13,40 +13,61 @@ import javax.swing.border.Border;
 import java.util.*;
 import modelo.Cadrado;
 import modelo.Xogo;
+import modelo.Cadrado;
+import modelo.FichaCadrada;
+import modelo.Ficha;
 
 /**
  *
  * @author a22alejandrofc
  */
+/*hola*/
 public class VentanaPrincipal extends javax.swing.JFrame {
 
-     private void setOpaque(boolean b) {
+    public Xogo xogo = new Xogo(this);
+
+    private void setOpaque(boolean b) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     /**
      * Creates new form VentanaPrincipal
      */
-      public class Imagen extends javax.swing.JPanel {
+    public class Imagen extends javax.swing.JPanel {
 
         public Imagen() {
-            this.setSize(320, 641);
+            this.setSize(320, 640);
         }
 
         public void paint(Graphics grafico) {
             Dimension height = getSize();
             ImageIcon Img = new ImageIcon(getClass().getResource("/Images/tetris1.png"));
-            grafico.drawImage(Img.getImage(),0 ,0, 320, 641, null);
+            grafico.drawImage(Img.getImage(), 0, 0, 320, 640, null);
 
             setOpaque(false);
             super.paintComponent(grafico);
 
+            /**
+             * javax.swing.ImageIcon Imagen = new
+             * javax.swing.ImageIcon("/Images/png-transparent-tetris-app-tetris-blitz-android-electronic-arts-red-hot-air-balloon-text-rectangle-logo.png");
+             * javax.swing.JLabel Img = new javax.swing.JLabel(Imagen);
+             * Img.setSize(200, 200); JLabel1.add(Img);*
+             *
+             * }
+             */
         }
     }
-    
-    public Xogo xogo=new Xogo();
+
     public VentanaPrincipal() {
+
         initComponents();
+        xogo.xenerarNovaFicha();
+    }
+
+    public void pintarCadrado(JLabel lblCadrado) {
+
+        panelXogo.add(lblCadrado);
+
     }
 
     /**
@@ -59,25 +80,26 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jFrame1 = new javax.swing.JFrame();
-        jPanel2 = new javax.swing.JPanel();
+        panelXogo = new javax.swing.JPanel();
         jToggleButton2 = new javax.swing.JToggleButton();
         jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         jFrame1.setMinimumSize(new java.awt.Dimension(700, 900));
         jFrame1.setResizable(false);
 
-        jPanel2.setMaximumSize(new java.awt.Dimension(320, 640));
-        jPanel2.setMinimumSize(new java.awt.Dimension(320, 640));
-        jPanel2.setPreferredSize(new java.awt.Dimension(320, 640));
+        panelXogo.setMaximumSize(new java.awt.Dimension(320, 640));
+        panelXogo.setMinimumSize(new java.awt.Dimension(320, 640));
+        panelXogo.setPreferredSize(new java.awt.Dimension(320, 640));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout panelXogoLayout = new javax.swing.GroupLayout(panelXogo);
+        panelXogo.setLayout(panelXogoLayout);
+        panelXogoLayout.setHorizontalGroup(
+            panelXogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 320, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        panelXogoLayout.setVerticalGroup(
+            panelXogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 640, Short.MAX_VALUE)
         );
 
@@ -93,23 +115,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jFrame1Layout.setHorizontalGroup(
             jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jFrame1Layout.createSequentialGroup()
-                .addGap(67, 67, 67)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55)
+                .addGap(76, 76, 76)
+                .addComponent(panelXogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
                 .addComponent(jToggleButton2)
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addContainerGap(197, Short.MAX_VALUE))
         );
         jFrame1Layout.setVerticalGroup(
             jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jFrame1Layout.createSequentialGroup()
-                .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jFrame1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jFrame1Layout.createSequentialGroup()
-                        .addGap(138, 138, 138)
-                        .addComponent(jToggleButton2)))
-                .addContainerGap(658, Short.MAX_VALUE))
+                .addGap(138, 138, 138)
+                .addComponent(jToggleButton2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jFrame1Layout.createSequentialGroup()
+                .addComponent(panelXogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 260, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -124,37 +144,52 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("jLabel1");
+        jLabel1.setMaximumSize(new java.awt.Dimension(200, 200));
+        jLabel1.setMinimumSize(new java.awt.Dimension(200, 200));
+        jLabel1.setPreferredSize(new java.awt.Dimension(200, 200));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(255, 255, 255)
-                .addComponent(jButton1)
-                .addContainerGap(373, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(212, 212, 212)
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(158, 158, 158)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(342, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(182, 182, 182)
+                .addGap(101, 101, 101)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(100, 100, 100)
                 .addComponent(jButton1)
-                .addContainerGap(695, Short.MAX_VALUE))
+                .addContainerGap(476, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
+
         // TODO add your handling code here:
+
     }//GEN-LAST:event_jToggleButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+
         jFrame1.setVisible(true);
 
         Imagen Imagen = new Imagen();
-        jPanel2.add(Imagen);
-        jPanel2.repaint();
+        panelXogo.add(Imagen);
+        panelXogo.repaint();
+
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -188,6 +223,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+
                 new VentanaPrincipal().setVisible(true);
             }
         });
@@ -196,7 +232,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JFrame jFrame1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JToggleButton jToggleButton2;
+    private javax.swing.JPanel panelXogo;
     // End of variables declaration//GEN-END:variables
+
 }
