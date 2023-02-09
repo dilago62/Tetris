@@ -5,9 +5,7 @@
 package modelo;
 
 import java.awt.Color;
-import javax.swing.BorderFactory;
 import javax.swing.JLabel;
-import javax.swing.border.Border;
 
 /**
  *
@@ -28,19 +26,6 @@ public class Cadrado {
         lblCadrado = new JLabel();
         lblCadrado.setLocation(x, y);
 
-
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-
-        lblCadrado.setBackground(corRecheo);
-        lblCadrado.setOpaque(true);
-        lblCadrado.setSize(32,32);
 
     }
 

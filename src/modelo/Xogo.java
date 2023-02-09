@@ -33,9 +33,6 @@ public class Xogo {
 
     public void xenerarNovaFicha() {
         fichaActual = new FichaCadrada(ventana.xogo);
-         for (int i = 0; i < fichaActual.cadrados.size(); i++) {
-              ventana.pintarCadrado(fichaActual.cadrados.get(i).lblCadrado);
-         }
         
       /*  int pieza = (int) (Math.random()*4);
         if(pieza==1){
