@@ -10,7 +10,6 @@ import java.util.Iterator;
 
 
 /**
- *
  * @author a22davidil
  */
 public class Xogo {
