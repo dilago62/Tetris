@@ -24,10 +24,12 @@ public abstract class Ficha {
     public boolean moverDereita() {
         if (validar('d')) {
             for (int contador = 0; contador < cadrados.size(); contador++) {
-                cadrados.get(contador).x = +xogo.ladoCadrado;
+                cadrados.get(contador).x =+xogo.ladoCadrado;
             }
+            pintarFigura();
             return true;
-        } else {
+        } 
+        else {
             return false;
         }
     }
@@ -35,10 +37,12 @@ public abstract class Ficha {
     public boolean moverEsquerda() {
         if (validar('e')) {
             for (int contador = 0; contador < cadrados.size(); contador++) {
-                cadrados.get(contador).x = +xogo.ladoCadrado;
+                cadrados.get(contador).x =+xogo.ladoCadrado;
             }
+            pintarFigura();
             return true;
-        } else {
+        } 
+        else {
             return false;
         }
     }
@@ -46,16 +50,24 @@ public abstract class Ficha {
     public boolean moverAbaixo() {
         if (validar('b')) {
             for (int contador = 0; contador < cadrados.size(); contador++) {
-                cadrados.get(contador).x = +xogo.ladoCadrado;
+                cadrados.get(contador).y =+xogo.ladoCadrado;
             }
+            pintarFigura();
             return true;
-        } else {
+        } 
+        else {
             return false;
         }
     }
 
     public abstract boolean rotar();
 
+    protected void pintarFigura(){
+    for (int contador = 0; contador < cadrados.size(); contador++) {
+              xogo.ventana.pintarCadrado(cadrados.get(contador).lblCadrado);
+        }
+    }
+    
     private boolean validar(char lado) {
         iterCadrados = cadrados.iterator();
         while (iterCadrados.hasNext()) {

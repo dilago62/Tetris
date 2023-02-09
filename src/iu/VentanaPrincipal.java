@@ -5,23 +5,13 @@
 package iu;
 
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.*;
-import java.util.Random;
-import javax.swing.border.Border;
-import java.util.*;
-import modelo.Cadrado;
 import modelo.Xogo;
-import modelo.Cadrado;
-import modelo.FichaCadrada;
-import modelo.Ficha;
 
 /**
  *
  * @author a22alejandrofc
  */
-/*hola*/
 public class VentanaPrincipal extends javax.swing.JFrame {
 
     public Xogo xogo = new Xogo(this);
@@ -69,7 +59,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         panelXogo.add(lblCadrado);
 
     }
-
+                
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
