@@ -13,7 +13,9 @@ import modelo.Xogo;
  * @author a22alejandrofc
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
-
+    
+    
+    
     public Xogo xogo = new Xogo(this);
 
     private void setOpaque(boolean b) {
