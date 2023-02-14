@@ -6,7 +6,10 @@ package iu;
 
 import java.awt.*;
 import javax.swing.*;
+import modelo.Ficha;
 import modelo.Xogo;
+import java.awt.event.KeyEvent;
+import javax.swing.border.Border;
 
 /**
  *
@@ -33,11 +36,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         public void paint(Graphics grafico) {
             Dimension height = getSize();
-            ImageIcon Img = new ImageIcon(getClass().getResource("/Images/tetris1.png"));
+            ImageIcon Img = new ImageIcon(getClass().getResource("/Images/tetris2.jpg"));
             grafico.drawImage(Img.getImage(), 0, 0, 320, 640, null);
-
-            setOpaque(false);
-            super.paintComponent(grafico);
 
             /**
              * javax.swing.ImageIcon Imagen = new
@@ -54,6 +54,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         initComponents();
         xogo.xenerarNovaFicha();
+
+    }
+
+    private void iniciarPartida() {
+
     }
 
     public void pintarCadrado(JLabel lblCadrado) {
@@ -61,7 +66,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         panelXogo.add(lblCadrado);
 
     }
-                
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -75,7 +80,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         panelXogo = new javax.swing.JPanel();
         jToggleButton2 = new javax.swing.JToggleButton();
         jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         jFrame1.setMinimumSize(new java.awt.Dimension(700, 900));
         jFrame1.setResizable(false);
@@ -83,6 +88,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         panelXogo.setMaximumSize(new java.awt.Dimension(320, 640));
         panelXogo.setMinimumSize(new java.awt.Dimension(320, 640));
         panelXogo.setPreferredSize(new java.awt.Dimension(320, 640));
+        panelXogo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                panelXogoKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelXogoLayout = new javax.swing.GroupLayout(panelXogo);
         panelXogo.setLayout(panelXogoLayout);
@@ -125,44 +135,50 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(700, 900));
         setMinimumSize(new java.awt.Dimension(700, 900));
         setResizable(false);
 
-        jButton1.setText("Iniciar");
+        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\a22alejandrofc\\Downloads\\button.png")); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
+        jButton1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton1KeyPressed(evt);
+            }
+        });
 
-        jLabel1.setText("jLabel1");
-        jLabel1.setMaximumSize(new java.awt.Dimension(200, 200));
-        jLabel1.setMinimumSize(new java.awt.Dimension(200, 200));
-        jLabel1.setPreferredSize(new java.awt.Dimension(200, 200));
+        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\a22alejandrofc\\Desktop\\tetrisportada.png")); // NOI18N
+        jLabel2.setPreferredSize(new java.awt.Dimension(300, 300));
+        jLabel2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jLabel2KeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(212, 212, 212)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(158, 158, 158)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(342, Short.MAX_VALUE))
+                .addGap(126, 126, 126)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 832, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(128, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(336, 336, 336))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(101, 101, 101)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(100, 100, 100)
-                .addComponent(jButton1)
-                .addContainerGap(476, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(339, Short.MAX_VALUE))
         );
 
         pack();
@@ -184,6 +200,42 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jLabel2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jLabel2KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel2KeyPressed
+
+    private void jButton1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyPressed
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1KeyPressed
+
+    private void panelXogoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_panelXogoKeyPressed
+
+        int key = evt.getKeyCode();
+
+        if (key == KeyEvent.VK_DOWN) {
+            JLabel ficha = new JLabel();
+            Border borde;
+            borde = BorderFactory.createLineBorder(Color.black);
+            ficha.setBorder(borde);
+            ficha.setBackground(Color.yellow);
+            ficha.setVisible(true);
+            ficha.setOpaque(true);
+            ficha.setSize(xogo.ladoCadrado, xogo.ladoCadrado);
+            xogo.fichaActual.moverAbaixo();
+        }
+        if (key == KeyEvent.VK_RIGHT) {
+
+            xogo.fichaActual.moverDereita();
+        }
+        if (key == KeyEvent.VK_LEFT) {
+
+            xogo.fichaActual.moverEsquerda();
+        }
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_panelXogoKeyPressed
 
     /**
      * @param args the command line arguments
@@ -224,7 +276,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JFrame jFrame1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JPanel panelXogo;
     // End of variables declaration//GEN-END:variables
