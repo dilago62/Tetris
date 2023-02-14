@@ -11,7 +11,7 @@ import javax.swing.border.Border;
 import modelo.Cadrado;
 
 /**
- *
+ * ykj
  * @author a22davidil
  */
 public class FichaCadrada extends Ficha {
