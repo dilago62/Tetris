@@ -6,7 +6,6 @@ package modelo;
 
 import java.awt.Color;
 import javax.swing.BorderFactory;
-import javax.swing.JLabel;
 import javax.swing.border.Border;
 import modelo.Cadrado;
 
