@@ -39,32 +39,64 @@ public class Xogo {
         }*/
     }
     
-    /*public boolean chocarFichacoChan(){
+    public void moverFichaAbaixo(){
+        if (validar('b')) {
+            fichaActual.moverAbaixo();
+        } 
+    }
+    
+    public void moverFichaDereita(){
+        if (validar('d')) {
+            fichaActual.moverDereita();
+        } 
+    }
+    
+    public void moverFichaEsquerda(){
+        if (validar('e')) {
+            fichaActual.moverDereita();
+        } 
+    }
+    
+    public boolean chocarFichacoChan(){
         for(int contador=0;contador<fichaActual.cadrados.size() ;contador++){
             if(chocarChan(fichaActual.cadrados.get(contador).x, fichaActual.cadrados.get(contador).y)){
-                
+                return true;
             }
         }
-    }*/
+        return false;
+    }
     
     public void engadirFichaAoChan(){
         cadradosChan.addAll(fichaActual.cadrados);
         fichaActual=null;
-        borrarLina();
+        borrarLinasCompletas();
     }
     
-    public void borrarLina(){
-        int linea;
+    public void borrarLinasCompletas(){
         ordenar();
-        ArrayList temporal = cadradosChan;
-        for(linea=20; linea>0; linea--){
-            
-            
+        ArrayList <Cadrado> temporal = cadradosChan;
+        for(int contador = 0; contador<cadradosChan.size(); contador++){
+            if(temporal.isEmpty()){
+                temporal.add(cadradosChan.get(contador));
+            }
+            else if(temporal.get(1).y==cadradosChan.get(contador).y){
+               temporal.add(cadradosChan.get(contador));
+               if(temporal.size()==10){
+                  borrarLina(temporal.get(1).y);
+               }
+            }
+            else{
+                
+            }
         }
     }
     
+    public void borrarLina(int y){
+        
+    }
+    
     public boolean ePosicionValida(int x, int y){
-        if (validar(x,y)){
+        if (validarXY(x,y)){
             return true;
         }
         else {
@@ -72,13 +104,16 @@ public class Xogo {
         }
     }
     
-    private boolean validar(int x, int y){
+    private boolean validarXY(int x, int y){
         return !cadradoEnXY(x, y) && x<maxX && y<maxY && x>0 && y>0;
     }
     
-    /*private boolean chocarChan(int x, int y){
-        if
-    }*/
+    private boolean chocarChan(int x, int y){
+        if(cadradoEnXY(x,y) || y==maxY-ladoCadrado){
+          return true;  
+        }
+        return false;
+    }
 
     private boolean cadradoEnXY(int x, int y){
         for(int contador = 0; contador<cadradosChan.size(); contador++){
@@ -89,6 +124,14 @@ public class Xogo {
             }
         }
         return false;
+    }
+    
+    private void baixarCadrados(int y){
+        for (int contador = 0; contador<cadradosChan.size(); contador++){
+            if(cadradosChan.get(contador).y<y){
+                cadradosChan.get(contador).y=-ladoCadrado;
+            }
+        }
     }
     
     private void ordenar(){
@@ -103,5 +146,25 @@ public class Xogo {
                 }
             }
         }
+    }
+    private boolean validar(char lado) {
+        Iterator<Cadrado> iterCadrados = fichaActual.cadrados.iterator();
+        while (iterCadrados.hasNext()) {
+            Cadrado temporal = iterCadrados.next();
+            if (lado == 'e') {
+                if (!ePosicionValida(temporal.x - ladoCadrado, temporal.y)) {
+                    return false;
+                }
+            } else if (lado == 'd') {
+                if (!ePosicionValida(temporal.x + ladoCadrado, temporal.y)) {
+                    return false;
+                }
+            } else if (lado == 'b') {
+                if (!ePosicionValida(temporal.x, temporal.y + ladoCadrado)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
