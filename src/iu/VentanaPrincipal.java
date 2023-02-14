@@ -6,7 +6,10 @@ package iu;
 
 import java.awt.*;
 import javax.swing.*;
+import modelo.Ficha;
 import modelo.Xogo;
+import java.awt.event.KeyEvent;
+import javax.swing.border.Border;
 
 /**
  *
@@ -54,8 +57,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void iniciarPartida() {
 
-       
-
     }
 
     public void pintarCadrado(JLabel lblCadrado) {
@@ -63,7 +64,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         panelXogo.add(lblCadrado);
 
     }
-                
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -85,6 +86,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         panelXogo.setMaximumSize(new java.awt.Dimension(320, 640));
         panelXogo.setMinimumSize(new java.awt.Dimension(320, 640));
         panelXogo.setPreferredSize(new java.awt.Dimension(320, 640));
+        panelXogo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                panelXogoKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelXogoLayout = new javax.swing.GroupLayout(panelXogo);
         panelXogo.setLayout(panelXogoLayout);
@@ -127,9 +133,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(700, 900));
         setMinimumSize(new java.awt.Dimension(700, 900));
-        setPreferredSize(new java.awt.Dimension(1000, 900));
         setResizable(false);
 
         jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\a22alejandrofc\\Downloads\\button.png")); // NOI18N
@@ -138,9 +142,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+        jButton1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton1KeyPressed(evt);
+            }
+        });
 
         jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\a22alejandrofc\\Desktop\\tetrisportada.png")); // NOI18N
         jLabel2.setPreferredSize(new java.awt.Dimension(300, 300));
+        jLabel2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jLabel2KeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -184,6 +198,42 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jLabel2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jLabel2KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel2KeyPressed
+
+    private void jButton1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyPressed
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1KeyPressed
+
+    private void panelXogoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_panelXogoKeyPressed
+
+        int key = evt.getKeyCode();
+
+        if (key == KeyEvent.VK_DOWN) {
+            JLabel ficha = new JLabel();
+            Border borde;
+            borde = BorderFactory.createLineBorder(Color.black);
+            ficha.setBorder(borde);
+            ficha.setBackground(Color.yellow);
+            ficha.setVisible(true);
+            ficha.setOpaque(true);
+            ficha.setSize(xogo.ladoCadrado, xogo.ladoCadrado);
+            xogo.fichaActual.moverAbaixo();
+        }
+        if (key == KeyEvent.VK_RIGHT) {
+
+            xogo.fichaActual.moverDereita();
+        }
+        if (key == KeyEvent.VK_LEFT) {
+
+            xogo.fichaActual.moverEsquerda();
+        }
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_panelXogoKeyPressed
 
     /**
      * @param args the command line arguments
