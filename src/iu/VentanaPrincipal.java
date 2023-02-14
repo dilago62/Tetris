@@ -39,14 +39,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             ImageIcon Img = new ImageIcon(getClass().getResource("/Images/tetris2.jpg"));
             grafico.drawImage(Img.getImage(), 0, 0, 320, 640, null);
 
-            /**
-             * javax.swing.ImageIcon Imagen = new
-             * javax.swing.ImageIcon("/Images/png-transparent-tetris-app-tetris-blitz-android-electronic-arts-red-hot-air-balloon-text-rectangle-logo.png");
-             * javax.swing.JLabel Img = new javax.swing.JLabel(Imagen);
-             * Img.setSize(200, 200); JLabel1.add(Img);*
-             *
-             * }
-             */
+
         }
     }
 
