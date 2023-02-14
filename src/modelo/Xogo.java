@@ -39,6 +39,14 @@ public class Xogo {
         }*/
     }
     
+    /*public boolean chocarFichacoChan(){
+        for(int contador=0;contador<fichaActual.cadrados.size() ;contador++){
+            if(chocarChan(fichaActual.cadrados.get(contador).x, fichaActual.cadrados.get(contador).y)){
+                
+            }
+        }
+    }*/
+    
     public void engadirFichaAoChan(){
         cadradosChan.addAll(fichaActual.cadrados);
         fichaActual=null;
@@ -64,30 +72,23 @@ public class Xogo {
         }
     }
     
-    public boolean validar(int x, int y){
-        return !cadradoEnX(x) && !cadradoEnY(y) && x<maxX && y<maxY && x>0 && y>0;
+    private boolean validar(int x, int y){
+        return !cadradoEnXY(x, y) && x<maxX && y<maxY && x>0 && y>0;
     }
     
-    private boolean cadradoEnX (int x){
-        boolean ocupado = false;
-        cadrados = cadradosChan.iterator();
-        while (cadrados.hasNext() && ocupado==false){ 
-            if (cadrados.next().x==x){
-                ocupado=true;
+    /*private boolean chocarChan(int x, int y){
+        if
+    }*/
+
+    private boolean cadradoEnXY(int x, int y){
+        for(int contador = 0; contador<cadradosChan.size(); contador++){
+            if (x==cadradosChan.get(contador).x){
+                if(y==cadradosChan.get(contador).y){
+                    return true;
+                }
             }
         }
-        return ocupado;
-    }
-    
-    private boolean cadradoEnY (int y){
-        boolean ocupado = false;
-        cadrados = cadradosChan.iterator();
-        while (cadrados.hasNext() && ocupado==false){ 
-            if (cadrados.next().y==y){
-                ocupado=true;
-            }
-        }
-        return ocupado;
+        return false;
     }
     
     private void ordenar(){
