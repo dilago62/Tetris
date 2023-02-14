@@ -9,6 +9,7 @@ import javax.swing.*;
 import modelo.Ficha;
 import modelo.Xogo;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.border.Border;
 
 /**
@@ -16,10 +17,9 @@ import javax.swing.border.Border;
  * @author a22alejandrofc
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
-    
-    
-    
+
     public Xogo xogo = new Xogo(this);
+    
 
     private void setOpaque(boolean b) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -54,7 +54,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         initComponents();
         xogo.xenerarNovaFicha();
-
+        panelXogo.setFocusable(true);
     }
 
     private void iniciarPartida() {
@@ -168,8 +168,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(128, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(336, 336, 336))
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(461, 461, 461))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,8 +177,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(339, Short.MAX_VALUE))
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(397, Short.MAX_VALUE))
         );
 
         pack();
@@ -213,26 +213,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void panelXogoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_panelXogoKeyPressed
 
         int key = evt.getKeyCode();
-
         if (key == KeyEvent.VK_DOWN) {
-            JLabel ficha = new JLabel();
-            Border borde;
-            borde = BorderFactory.createLineBorder(Color.black);
-            ficha.setBorder(borde);
-            ficha.setBackground(Color.yellow);
-            ficha.setVisible(true);
-            ficha.setOpaque(true);
-            ficha.setSize(xogo.ladoCadrado, xogo.ladoCadrado);
-            xogo.fichaActual.moverAbaixo();
+
+           xogo.fichaActual.moverAbaixo();
         }
         if (key == KeyEvent.VK_RIGHT) {
-
             xogo.fichaActual.moverDereita();
         }
         if (key == KeyEvent.VK_LEFT) {
-
             xogo.fichaActual.moverEsquerda();
         }
+        repaint();
 
         // TODO add your handling code here:
     }//GEN-LAST:event_panelXogoKeyPressed
