@@ -6,11 +6,8 @@ package iu;
 
 import java.awt.*;
 import javax.swing.*;
-import modelo.Ficha;
 import modelo.Xogo;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import javax.swing.border.Border;
 
 /**
  *
@@ -55,11 +52,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     public void pintarCadrado(JLabel lblCadrado) {
-
+        lblCadrado.setVisible(true);
+        lblCadrado.setOpaque(true);
+        lblCadrado.setSize(xogo.ladoCadrado, xogo.ladoCadrado);
         panelXogo.add(lblCadrado);
-
     }
-
+    
+    public void borrarCadrado(JLabel lblCadrado){
+        panelXogo.remove(lblCadrado);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -72,6 +74,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jFrame1 = new javax.swing.JFrame();
         panelXogo = new javax.swing.JPanel();
         jToggleButton2 = new javax.swing.JToggleButton();
+        jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
@@ -105,6 +108,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("jLabel1");
+
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
         jFrame1Layout.setHorizontalGroup(
@@ -112,8 +117,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGroup(jFrame1Layout.createSequentialGroup()
                 .addGap(76, 76, 76)
                 .addComponent(panelXogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
-                .addComponent(jToggleButton2)
+                .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jFrame1Layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(jToggleButton2))
+                    .addGroup(jFrame1Layout.createSequentialGroup()
+                        .addGap(61, 61, 61)
+                        .addComponent(jLabel1)))
                 .addContainerGap(197, Short.MAX_VALUE))
         );
         jFrame1Layout.setVerticalGroup(
@@ -121,6 +131,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGroup(jFrame1Layout.createSequentialGroup()
                 .addGap(138, 138, 138)
                 .addComponent(jToggleButton2)
+                .addGap(28, 28, 28)
+                .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jFrame1Layout.createSequentialGroup()
                 .addComponent(panelXogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -131,7 +143,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(700, 900));
         setResizable(false);
 
-        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\a22alejandrofc\\Downloads\\button.png")); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -143,7 +154,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\a22alejandrofc\\Desktop\\tetrisportada.png")); // NOI18N
         jLabel2.setPreferredSize(new java.awt.Dimension(300, 300));
         jLabel2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -207,14 +217,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         int key = evt.getKeyCode();
         if (key == KeyEvent.VK_DOWN) {
-
-           xogo.fichaActual.moverAbaixo();
+           xogo.moverFichaAbaixo();
+           jLabel1.setText(xogo.fichaActual.cadrados.get(1).getCoordenadas());
         }
         if (key == KeyEvent.VK_RIGHT) {
-            xogo.fichaActual.moverDereita();
+            xogo.moverFichaDereita();
+            jLabel1.setText(xogo.fichaActual.cadrados.get(1).getCoordenadas());
         }
         if (key == KeyEvent.VK_LEFT) {
-            xogo.fichaActual.moverEsquerda();
+            xogo.moverFichaEsquerda();
+            jLabel1.setText(xogo.fichaActual.cadrados.get(1).getCoordenadas());
         }
         repaint();
 
@@ -260,6 +272,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JFrame jFrame1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JPanel panelXogo;

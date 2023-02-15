@@ -10,7 +10,7 @@ import javax.swing.border.Border;
 import modelo.Cadrado;
 
 /**
- * ykj
+ * 
  * @author a22davidil
  */
 public class FichaCadrada extends Ficha {
@@ -37,9 +37,6 @@ public class FichaCadrada extends Ficha {
             borde = BorderFactory.createLineBorder(Color.black);
             cadrados.get(i).lblCadrado.setBorder(borde);
             cadrados.get(i).lblCadrado.setBackground(cadrados.get(i).corRecheo);
-            cadrados.get(i).lblCadrado.setVisible(true);
-            cadrados.get(i).lblCadrado.setOpaque(true);
-            cadrados.get(i).lblCadrado.setSize(xogo.ladoCadrado, xogo.ladoCadrado);
         }
 
     } 
