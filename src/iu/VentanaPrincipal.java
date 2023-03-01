@@ -280,11 +280,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
         if (key == KeyEvent.VK_RIGHT) {
             xogo.moverFichaDereita();
-            jLabel1.setText(xogo.fichaActual.cadrados.get(1).getCoordenadas());
         }
         if (key == KeyEvent.VK_LEFT) {
             xogo.moverFichaEsquerda();
-            jLabel1.setText(xogo.fichaActual.cadrados.get(1).getCoordenadas());
         }
         repaint();
 
