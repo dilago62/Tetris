@@ -5,9 +5,14 @@
 package iu;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import modelo.Xogo;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import javax.swing.border.Border;
+import javax.swing.Timer;
 
 /**
  *
@@ -16,11 +21,11 @@ import java.awt.event.KeyEvent;
 public class VentanaPrincipal extends javax.swing.JFrame {
 
     public Xogo xogo = new Xogo(this);
-    
-
-    private void setOpaque(boolean b) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    private Timer tiempo;
+    int centesimas = 0;
+    int segundos = 0;
+    int minutos = 0;
+    int horas = 0;
 
     /**
      * Creates new form VentanaPrincipal
@@ -32,9 +37,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
 
         public void paint(Graphics grafico) {
-            ImageIcon Img = new ImageIcon(getClass().getResource("/Images/tetris2.jpg"));
+            Dimension height = getSize();
+            ImageIcon Img = new ImageIcon(getClass().getResource("/Images/tetris4.png"));
             grafico.drawImage(Img.getImage(), 0, 0, 320, 640, null);
+
         }
+    }
+
+    private void Tiempo() {
+        String texto = (horas <= 9 ? "0" : "") + horas + ":" + (minutos <= 9 ? "0" : "") + minutos + ":"
+                + (segundos <= 9 ? "0" : "") + segundos + ":" + (centesimas <= 9 ? "0" : "") + centesimas;
+
+        jLabel3.setText(texto);
     }
 
     public VentanaPrincipal() {
@@ -42,11 +56,32 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         initComponents();
         xogo.xenerarNovaFicha();
         panelXogo.setFocusable(true);
-    }
-
-    private void iniciarPartida() {
+        tiempo = new Timer(10, acciones);
 
     }
+
+    private ActionListener acciones = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            centesimas++;
+            if (centesimas == 100) {
+                segundos++;
+                centesimas = 0;
+            }
+            if (segundos == 60) {
+                minutos++;
+                segundos = 0;
+            }
+            if (minutos == 60) {
+                horas++;
+                minutos = 0;
+            }
+            if (horas == 24) {
+                horas = 0;
+            }
+            Tiempo();
+        }
+    };
 
     public void pintarCadrado(JLabel lblCadrado) {
         panelXogo.add(lblCadrado);
@@ -73,8 +108,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         panelXogo = new javax.swing.JPanel();
         jToggleButton2 = new javax.swing.JToggleButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         jFrame1.setMinimumSize(new java.awt.Dimension(700, 900));
         jFrame1.setResizable(false);
@@ -99,14 +136,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGap(0, 640, Short.MAX_VALUE)
         );
 
-        jToggleButton2.setText("Pausa");
+        jToggleButton2.setIcon(new javax.swing.ImageIcon("C:\\Users\\a22alejandrofc\\Downloads\\button (2).png")); // NOI18N
         jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton2ActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("jLabel1");
+        jLabel3.setFont(new java.awt.Font("Source Serif Pro Black", 1, 36)); // NOI18N
+        jLabel3.setText("00:00:00:00");
+
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -117,30 +156,31 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addComponent(panelXogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jFrame1Layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(jToggleButton2))
+                        .addGap(58, 58, 58)
+                        .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jFrame1Layout.createSequentialGroup()
-                        .addGap(61, 61, 61)
-                        .addComponent(jLabel1)))
-                .addContainerGap(197, Short.MAX_VALUE))
+                        .addGap(48, 48, 48)
+                        .addComponent(jLabel3)))
+                .addContainerGap(94, Short.MAX_VALUE))
         );
         jFrame1Layout.setVerticalGroup(
             jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jFrame1Layout.createSequentialGroup()
-                .addGap(138, 138, 138)
-                .addComponent(jToggleButton2)
-                .addGap(28, 28, 28)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jFrame1Layout.createSequentialGroup()
                 .addComponent(panelXogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 260, Short.MAX_VALUE))
+            .addGroup(jFrame1Layout.createSequentialGroup()
+                .addGap(203, 203, 203)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60)
+                .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(700, 900));
         setResizable(false);
 
+        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\a22alejandrofc\\Downloads\\button (1).png")); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -152,6 +192,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\a22alejandrofc\\Downloads\\tetris.png")); // NOI18N
         jLabel2.setPreferredSize(new java.awt.Dimension(300, 300));
         jLabel2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -159,33 +200,49 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\a22alejandrofc\\Downloads\\628a738ebc2ec7ad957f4072.png")); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(126, 126, 126)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 832, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(128, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(461, 461, 461))
+                .addGap(151, 151, 151)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 517, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(96, 96, 96)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addComponent(jLabel1)))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(397, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 526, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(69, 69, 69)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(518, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
+
+        if (tiempo.isRunning()) {
+            tiempo.stop();
+        } else {
+            tiempo.start();
+        }
 
         // TODO add your handling code here:
 
@@ -198,8 +255,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         Imagen Imagen = new Imagen();
         panelXogo.add(Imagen);
         panelXogo.repaint();
-
-        // TODO add your handling code here:
+        tiempo.start();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jLabel2KeyPressed
@@ -219,8 +275,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         int key = evt.getKeyCode();
         if (key == KeyEvent.VK_DOWN) {
-           xogo.moverFichaAbaixo();
-           jLabel1.setText(xogo.fichaActual.cadrados.get(1).getCoordenadas());
+
+            xogo.fichaActual.moverAbaixo();
         }
         if (key == KeyEvent.VK_RIGHT) {
             xogo.moverFichaDereita();
@@ -276,6 +332,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JPanel panelXogo;
     // End of variables declaration//GEN-END:variables
