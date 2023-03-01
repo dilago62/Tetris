@@ -8,7 +8,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
-import modelo.Ficha;
 import modelo.Xogo;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -85,11 +84,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     };
 
     public void pintarCadrado(JLabel lblCadrado) {
-
         panelXogo.add(lblCadrado);
-
+        lblCadrado.setVisible(true);
+        lblCadrado.setOpaque(true);
+        lblCadrado.setSize(xogo.ladoCadrado, xogo.ladoCadrado);
+        panelXogo.updateUI();
     }
-
+    
+    public void borrarCadrado(JLabel lblCadrado){
+        panelXogo.remove(lblCadrado);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -102,6 +107,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jFrame1 = new javax.swing.JFrame();
         panelXogo = new javax.swing.JPanel();
         jToggleButton2 = new javax.swing.JToggleButton();
+        jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -139,6 +145,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Source Serif Pro Black", 1, 36)); // NOI18N
         jLabel3.setText("00:00:00:00");
+
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -260,6 +267,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1KeyPressed
 
+    public void mensaxe(){
+        jLabel1.setText("Nueva ficha creada");
+    }
+    
     private void panelXogoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_panelXogoKeyPressed
 
         int key = evt.getKeyCode();
@@ -268,10 +279,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             xogo.fichaActual.moverAbaixo();
         }
         if (key == KeyEvent.VK_RIGHT) {
-            xogo.fichaActual.moverDereita();
+            xogo.moverFichaDereita();
+            jLabel1.setText(xogo.fichaActual.cadrados.get(1).getCoordenadas());
         }
         if (key == KeyEvent.VK_LEFT) {
-            xogo.fichaActual.moverEsquerda();
+            xogo.moverFichaEsquerda();
+            jLabel1.setText(xogo.fichaActual.cadrados.get(1).getCoordenadas());
         }
         repaint();
 

@@ -18,15 +18,13 @@ public class Cadrado {
     public Color corRecheo;
     public JLabel lblCadrado;
 
-    public Cadrado(int x, int y, Color corRecheo) {
+    public Cadrado(int x, int y, Color corRecheo, int lado) {
 
         this.x = x;
         this.y = y;
         this.corRecheo = Color.YELLOW;
         lblCadrado = new JLabel();
-        lblCadrado.setLocation(x, y);
-
-
+        lblCadrado.setBounds(x, y, lado, lado);
     }
 
     public String getCoordenadas() {
