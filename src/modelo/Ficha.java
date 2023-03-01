@@ -41,7 +41,6 @@ public abstract class Ficha {
             cadrados.get(contador).lblCadrado.setLocation(cadrados.get(contador).x, cadrados.get(contador).y);
         }
         return true;
-
     }
 
     public abstract boolean rotar();
