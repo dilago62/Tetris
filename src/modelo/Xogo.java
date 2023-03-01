@@ -30,8 +30,9 @@ public class Xogo {
         this.ventana=ventana;
     }
 
-    public void xenerarNovaFicha() {
+    public boolean xenerarNovaFicha() {
         fichaActual = new FichaCadrada(this);
+        return true;
         
       /*  int pieza = (int) (Math.random()*4);
         if(pieza==1){
@@ -40,12 +41,13 @@ public class Xogo {
     }
     
     public void moverFichaAbaixo(){
-        if (validar('b')) {
-            fichaActual.moverAbaixo();
-        }
+        
         if(chocarFichaCoChan()){
             engadirFichaAoChan();
             xenerarNovaFicha();
+        }
+        else{
+            fichaActual.moverAbaixo();
         }
     }
     
@@ -75,7 +77,10 @@ public class Xogo {
     }
     
     public void borrarLinasCompletas(){
-        ordenar();
+        for(int contador = 0; contador<cadradosChan.size(); contador++){
+            
+        }
+        
         ArrayList <Cadrado> temporal = cadradosChan;
         for(int contador = 0; contador<cadradosChan.size(); contador++){
             if(temporal.isEmpty()){
@@ -168,10 +173,6 @@ public class Xogo {
                 }
             } else if (lado == 'd') {
                 if (!ePosicionValida(temporal.x + ladoCadrado, temporal.y)) {
-                    return false;
-                }
-            } else if (lado == 'b') {
-                if (!ePosicionValida(temporal.x, temporal.y + ladoCadrado)) {
                     return false;
                 }
             }

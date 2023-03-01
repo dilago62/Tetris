@@ -32,11 +32,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
 
         public void paint(Graphics grafico) {
-            Dimension height = getSize();
             ImageIcon Img = new ImageIcon(getClass().getResource("/Images/tetris2.jpg"));
             grafico.drawImage(Img.getImage(), 0, 0, 320, 640, null);
-
-
         }
     }
 
@@ -52,10 +49,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     public void pintarCadrado(JLabel lblCadrado) {
+        panelXogo.add(lblCadrado);
         lblCadrado.setVisible(true);
         lblCadrado.setOpaque(true);
         lblCadrado.setSize(xogo.ladoCadrado, xogo.ladoCadrado);
-        panelXogo.add(lblCadrado);
+        panelXogo.updateUI();
     }
     
     public void borrarCadrado(JLabel lblCadrado){
@@ -213,6 +211,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1KeyPressed
 
+    public void mensaxe(){
+        jLabel1.setText("Nueva ficha creada");
+    }
+    
     private void panelXogoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_panelXogoKeyPressed
 
         int key = evt.getKeyCode();

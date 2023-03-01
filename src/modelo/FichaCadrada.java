@@ -22,10 +22,10 @@ public class FichaCadrada extends Ficha {
     }
     
     private void crearCadrado(){
-        Cadrado cadrado0 = new Cadrado(4*xogo.ladoCadrado,0, Color.YELLOW);
-        Cadrado cadrado1 = new Cadrado(5*xogo.ladoCadrado,0, Color.YELLOW);
-        Cadrado cadrado2 = new Cadrado(5*xogo.ladoCadrado,xogo.ladoCadrado, Color.YELLOW);
-        Cadrado cadrado3 = new Cadrado(4*xogo.ladoCadrado,xogo.ladoCadrado, Color.YELLOW);
+        Cadrado cadrado0 = new Cadrado(4*xogo.ladoCadrado,0, Color.YELLOW, xogo.ladoCadrado);
+        Cadrado cadrado1 = new Cadrado(5*xogo.ladoCadrado,0, Color.YELLOW, xogo.ladoCadrado);
+        Cadrado cadrado2 = new Cadrado(5*xogo.ladoCadrado,xogo.ladoCadrado, Color.YELLOW, xogo.ladoCadrado);
+        Cadrado cadrado3 = new Cadrado(4*xogo.ladoCadrado,xogo.ladoCadrado, Color.YELLOW, xogo.ladoCadrado);
 
         cadrados.add(cadrado0);
         cadrados.add(cadrado1);
@@ -37,6 +37,9 @@ public class FichaCadrada extends Ficha {
             borde = BorderFactory.createLineBorder(Color.black);
             cadrados.get(i).lblCadrado.setBorder(borde);
             cadrados.get(i).lblCadrado.setBackground(cadrados.get(i).corRecheo);
+            cadrados.get(i).lblCadrado.setVisible(true);
+            cadrados.get(i).lblCadrado.setOpaque(true);
+            cadrados.get(i).lblCadrado.setSize(xogo.ladoCadrado, xogo.ladoCadrado);
         }
 
     } 
