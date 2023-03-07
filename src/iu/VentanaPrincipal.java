@@ -92,10 +92,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     public void pintarCadrado(JLabel lblCadrado) {
         panelXogo.add(lblCadrado);
-        lblCadrado.setVisible(true);
-        lblCadrado.setOpaque(true);
-        lblCadrado.setSize(xogo.ladoCadrado, xogo.ladoCadrado);
-        panelXogo.updateUI();
     }
     
     public void borrarCadrado(JLabel lblCadrado){

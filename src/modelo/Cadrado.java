@@ -22,9 +22,7 @@ public class Cadrado {
 
         this.x = x;
         this.y = y;
-        this.corRecheo = Color.YELLOW;
-        lblCadrado = new JLabel();
-        lblCadrado.setBounds(x, y, lado, lado);
+        this.corRecheo = corRecheo;
     }
 
     public String getCoordenadas() {
