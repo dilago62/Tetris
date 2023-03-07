@@ -31,13 +31,24 @@ public class Xogo {
     }
 
     public boolean xenerarNovaFicha() {
-        fichaActual = new FichaCadrada(this);
-        return true;
+        int pieza = (int) (Math.random()*4);
+        switch (pieza){
+            case 0:
+                fichaActual = new FichaCadrada(this);
+                break;
+            case 1:
+                fichaActual = new FichaBarra(this);
+                break;
+            case 2:
+                fichaActual = new FichaL(this);
+                break;
+            case 3:
+                fichaActual = new FichaT(this);
+                break;
+        }
         
-      /*  int pieza = (int) (Math.random()*4);
-        if(pieza==1){
-            
-        }*/
+        
+        return true; 
     }
     
     public void moverFichaAbaixo(){

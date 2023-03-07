@@ -22,7 +22,7 @@ public class Cadrado {
 
         this.x = x;
         this.y = y;
-        this.corRecheo = Color.YELLOW;
+        this.corRecheo = corRecheo;
         lblCadrado = new JLabel();
         lblCadrado.setBounds(x, y, lado, lado);
     }
