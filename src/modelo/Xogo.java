@@ -19,7 +19,7 @@ public class Xogo {
     public int maxY = 640;
     public boolean pausa;
     public int numeroLineas = 0;
-    public ArrayList<Cadrado> cadradosChan = new ArrayList();
+    public ArrayList <Cadrado> cadradosChan = new ArrayList();
     public Ficha fichaActual;
     private Iterator <Cadrado> cadrados;
     public VentanaPrincipal ventana;
@@ -30,8 +30,9 @@ public class Xogo {
         this.ventana=ventana;
     }
 
-    public void xenerarNovaFicha() {
-        fichaActual = new FichaCadrada(ventana.xogo);
+    public boolean xenerarNovaFicha() {
+        fichaActual = new FichaCadrada(this);
+        return true;
         
       /*  int pieza = (int) (Math.random()*4);
         if(pieza==1){
@@ -40,9 +41,14 @@ public class Xogo {
     }
     
     public void moverFichaAbaixo(){
-        if (validar('b')) {
+        if(chocarFichaCoChan()){
+            engadirFichaAoChan();
+            borrarLinasCompletas();
+            xenerarNovaFicha();
+        }
+        else{
             fichaActual.moverAbaixo();
-        } 
+        }
     }
     
     public void moverFichaDereita(){
@@ -53,11 +59,11 @@ public class Xogo {
     
     public void moverFichaEsquerda(){
         if (validar('e')) {
-            fichaActual.moverDereita();
+            fichaActual.moverEsquerda();
         } 
     }
     
-    public boolean chocarFichacoChan(){
+    public boolean chocarFichaCoChan(){
         for(int contador=0;contador<fichaActual.cadrados.size() ;contador++){
             if(chocarChan(fichaActual.cadrados.get(contador).x, fichaActual.cadrados.get(contador).y)){
                 return true;
@@ -68,8 +74,6 @@ public class Xogo {
     
     public void engadirFichaAoChan(){
         cadradosChan.addAll(fichaActual.cadrados);
-        fichaActual=null;
-        borrarLinasCompletas();
     }
     
     public void borrarLinasCompletas(){
@@ -79,20 +83,28 @@ public class Xogo {
             if(temporal.isEmpty()){
                 temporal.add(cadradosChan.get(contador));
             }
-            else if(temporal.get(1).y==cadradosChan.get(contador).y){
+            else if(temporal.get(0).y==cadradosChan.get(contador).y){
                temporal.add(cadradosChan.get(contador));
                if(temporal.size()==10){
                   borrarLina(temporal.get(1).y);
+                  temporal.clear();
+                  contador=-10;
                }
             }
             else{
-                
+                temporal.clear();
             }
         }
     }
     
     public void borrarLina(int y){
-        
+       for(int contador = 0; contador<cadradosChan.size(); contador++){
+           if(cadradosChan.get(contador).y==y){
+               ventana.borrarCadrado(cadradosChan.get(contador).lblCadrado);
+               contador--;
+           }
+       }
+       baixarCadrados(y);
     }
     
     public boolean ePosicionValida(int x, int y){
@@ -105,11 +117,11 @@ public class Xogo {
     }
     
     private boolean validarXY(int x, int y){
-        return !cadradoEnXY(x, y) && x<maxX && y<maxY && x>0 && y>0;
+        return !cadradoEnXY(x, y) && x<maxX && y<maxY && x>=0 && y>=0;
     }
     
     private boolean chocarChan(int x, int y){
-        if(cadradoEnXY(x,y) || y==maxY-ladoCadrado){
+        if(cadradoEnXY(x,y) || y+ladoCadrado==maxY){
           return true;  
         }
         return false;
@@ -128,7 +140,7 @@ public class Xogo {
     
     private void baixarCadrados(int y){
         for (int contador = 0; contador<cadradosChan.size(); contador++){
-            if(cadradosChan.get(contador).y<y){
+            if(cadradosChan.get(contador).y>y){
                 cadradosChan.get(contador).y=-ladoCadrado;
             }
         }
@@ -138,7 +150,7 @@ public class Xogo {
         Cadrado temporal;
         for (int contador = 0; contador<cadradosChan.size()-1; contador++){
             for (int contador2=contador+1; contador2<cadradosChan.size(); contador2++){
-                if (cadradosChan.get(contador).x>cadradosChan.get(contador2).y){
+                if (cadradosChan.get(contador).y>cadradosChan.get(contador2).y){
                     temporal=cadradosChan.get(contador);
                     cadradosChan.remove(temporal);
                     cadradosChan.set(contador, cadradosChan.get(contador2));
@@ -147,6 +159,7 @@ public class Xogo {
             }
         }
     }
+    
     private boolean validar(char lado) {
         Iterator<Cadrado> iterCadrados = fichaActual.cadrados.iterator();
         while (iterCadrados.hasNext()) {
@@ -157,10 +170,6 @@ public class Xogo {
                 }
             } else if (lado == 'd') {
                 if (!ePosicionValida(temporal.x + ladoCadrado, temporal.y)) {
-                    return false;
-                }
-            } else if (lado == 'b') {
-                if (!ePosicionValida(temporal.x, temporal.y + ladoCadrado)) {
                     return false;
                 }
             }

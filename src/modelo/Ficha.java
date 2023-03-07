@@ -21,27 +21,26 @@ public abstract class Ficha {
 
     public boolean moverDereita() {
         for (int contador = 0; contador < cadrados.size(); contador++) {
-            cadrados.get(contador).x = +xogo.ladoCadrado;
+            cadrados.get(contador).x = cadrados.get(contador).x+xogo.ladoCadrado;
+            cadrados.get(contador).lblCadrado.setLocation(cadrados.get(contador).x, cadrados.get(contador).y);
         }
-        pintarFigura();
         return true;
     }
 
     public boolean moverEsquerda() {
         for (int contador = 0; contador < cadrados.size(); contador++) {
-            cadrados.get(contador).x = +xogo.ladoCadrado;
+            cadrados.get(contador).x = cadrados.get(contador).x-xogo.ladoCadrado;
+            cadrados.get(contador).lblCadrado.setLocation(cadrados.get(contador).x, cadrados.get(contador).y);
         }
-        pintarFigura();
         return true;
     }
 
     public boolean moverAbaixo() {
         for (int contador = 0; contador < cadrados.size(); contador++) {
-            cadrados.get(contador).y = +xogo.ladoCadrado;
+            cadrados.get(contador).y = cadrados.get(contador).y+xogo.ladoCadrado;
+            cadrados.get(contador).lblCadrado.setLocation(cadrados.get(contador).x, cadrados.get(contador).y);
         }
-        pintarFigura();
         return true;
-
     }
 
     public abstract boolean rotar();

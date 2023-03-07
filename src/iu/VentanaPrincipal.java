@@ -8,7 +8,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
-import modelo.Ficha;
 import modelo.Xogo;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -27,6 +26,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     int segundos = 0;
     int minutos = 0;
     int horas = 0;
+    private Timer caida;
+    private int dificultad; 
 
     /**
      * Creates new form VentanaPrincipal
@@ -38,7 +39,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
 
         public void paint(Graphics grafico) {
-            Dimension height = getSize();
             ImageIcon Img = new ImageIcon(getClass().getResource("/Images/tetris4.png"));
             grafico.drawImage(Img.getImage(), 0, 0, 320, 640, null);
 
@@ -55,10 +55,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public VentanaPrincipal() {
 
         initComponents();
+        dificultad=1;
+        int tiempoCaida = 850-dificultad*50;
         xogo.xenerarNovaFicha();
         panelXogo.setFocusable(true);
         tiempo = new Timer(10, acciones);
-
+        caida = new Timer(tiempoCaida, new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                xogo.moverFichaAbaixo();   
+            }
+        });
     }
 
     private ActionListener acciones = new ActionListener() {
@@ -85,11 +91,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     };
 
     public void pintarCadrado(JLabel lblCadrado) {
-
         panelXogo.add(lblCadrado);
-
+        lblCadrado.setVisible(true);
+        lblCadrado.setOpaque(true);
+        lblCadrado.setSize(xogo.ladoCadrado, xogo.ladoCadrado);
+        panelXogo.updateUI();
     }
-
+    
+    public void borrarCadrado(JLabel lblCadrado){
+        panelXogo.remove(lblCadrado);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -130,7 +142,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGap(0, 640, Short.MAX_VALUE)
         );
 
+
         jToggleButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/button (2).png"))); // NOI18N
+
         jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton2ActionPerformed(evt);
@@ -173,7 +187,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(700, 900));
         setResizable(false);
 
+
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/button (1).png"))); // NOI18N
+
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -193,7 +209,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/628a738ebc2ec7ad957f4072.png"))); // NOI18N
+
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -233,8 +251,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         if (tiempo.isRunning()) {
             tiempo.stop();
+            caida.stop();
         } else {
             tiempo.start();
+            caida.start();
         }
 
         // TODO add your handling code here:
@@ -249,6 +269,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         panelXogo.add(Imagen);
         panelXogo.repaint();
         tiempo.start();
+        caida.start();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jLabel2KeyPressed
@@ -260,18 +281,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1KeyPressed
 
+    public void mensaxe(){
+        jLabel1.setText("Nueva ficha creada");
+    }
+    
     private void panelXogoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_panelXogoKeyPressed
 
         int key = evt.getKeyCode();
         if (key == KeyEvent.VK_DOWN) {
-
-            xogo.fichaActual.moverAbaixo();
+            xogo.moverFichaAbaixo();
         }
         if (key == KeyEvent.VK_RIGHT) {
-            xogo.fichaActual.moverDereita();
+            xogo.moverFichaDereita();
         }
         if (key == KeyEvent.VK_LEFT) {
-            xogo.fichaActual.moverEsquerda();
+            xogo.moverFichaEsquerda();
         }
         repaint();
 

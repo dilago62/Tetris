@@ -10,7 +10,7 @@ import javax.swing.border.Border;
 import modelo.Cadrado;
 
 /**
- * ykj
+ * 
  * @author a22davidil
  */
 public class FichaCadrada extends Ficha {
@@ -22,10 +22,10 @@ public class FichaCadrada extends Ficha {
     }
     
     private void crearCadrado(){
-        Cadrado cadrado0 = new Cadrado(4*xogo.ladoCadrado,0, Color.YELLOW);
-        Cadrado cadrado1 = new Cadrado(5*xogo.ladoCadrado,0, Color.YELLOW);
-        Cadrado cadrado2 = new Cadrado(5*xogo.ladoCadrado,xogo.ladoCadrado, Color.YELLOW);
-        Cadrado cadrado3 = new Cadrado(4*xogo.ladoCadrado,xogo.ladoCadrado, Color.YELLOW);
+        Cadrado cadrado0 = new Cadrado(4*xogo.ladoCadrado,0, Color.YELLOW, xogo.ladoCadrado);
+        Cadrado cadrado1 = new Cadrado(5*xogo.ladoCadrado,0, Color.YELLOW, xogo.ladoCadrado);
+        Cadrado cadrado2 = new Cadrado(5*xogo.ladoCadrado,xogo.ladoCadrado, Color.YELLOW, xogo.ladoCadrado);
+        Cadrado cadrado3 = new Cadrado(4*xogo.ladoCadrado,xogo.ladoCadrado, Color.YELLOW, xogo.ladoCadrado);
 
         cadrados.add(cadrado0);
         cadrados.add(cadrado1);
