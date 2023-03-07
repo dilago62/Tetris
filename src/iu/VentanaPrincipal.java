@@ -293,6 +293,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         if (key == KeyEvent.VK_LEFT) {
             xogo.moverFichaEsquerda();
         }
+        if (key == KeyEvent.VK_UP) {
+            xogo.rotarFicha();
+        }
         repaint();
 
         // TODO add your handling code here:
