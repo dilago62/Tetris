@@ -40,7 +40,7 @@ public class FichaBarra extends Ficha {
             cadrados.get(i).lblCadrado.setSize(xogo.ladoCadrado, xogo.ladoCadrado);
             cadrados.get(i).lblCadrado.setLocation(cadrados.get(i).x, cadrados.get(i).y);
         }
-        pintarFigura();
+       
     } 
 
     public boolean rotar() {

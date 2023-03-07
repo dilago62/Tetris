@@ -8,7 +8,6 @@ import iu.VentanaPrincipal;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-
 /**
  * @author a22davidil
  */
@@ -19,21 +18,28 @@ public class Xogo {
     public int maxY = 640;
     public boolean pausa;
     public int numeroLineas = 0;
-    public ArrayList <Cadrado> cadradosChan = new ArrayList();
+    public ArrayList<Cadrado> cadradosChan = new ArrayList();
     public Ficha fichaActual;
-    private Iterator <Cadrado> cadrados;
+    private Iterator<Cadrado> cadrados;
     public VentanaPrincipal ventana;
-    
-    
+
     public Xogo(VentanaPrincipal ventana) {
-       
-        this.ventana=ventana;
+
+        this.ventana = ventana;
     }
 
     public boolean xenerarNovaFicha() {
+
+        
+
+        int pieza = (int) (Math.random() * 4);
+        pieza++;
+        switch (pieza) {
+
         fichaActual = null;
         int pieza = (int) (Math.random()*2);
         switch (pieza){
+
             case 0:
             default:
                 //FichaCadrada fichaC = new FichaCadrada(this);
@@ -52,32 +58,39 @@ public class Xogo {
                 fichaActual = fichaT;
                 break;
         }
-        
-        
-        return true; 
-    }
-    
-    public void moverFichaAbaixo(){
-        if(chocarFichaCoChan()){
-            engadirFichaAoChan();
-            borrarLinasCompletas();
+        for (int contador = 0; contador < fichaActual.cadrados.size(); contador++) {
+            ventana.pintarCadrado(fichaActual.cadrados.get(contador).lblCadrado);
         }
-        else{
+
+        return true;
+    }
+
+    public void moverFichaAbaixo() {
+        if (chocarFichaCoChan()) {
+            engadirFichaAoChan();
+
+        } else {
             fichaActual.moverAbaixo();
         }
     }
-    
-    public void moverFichaDereita(){
+
+    public void moverFichaDereita() {
         if (validar('d')) {
             fichaActual.moverDereita();
-        } 
+        }
     }
-    
-    public void moverFichaEsquerda(){
+
+    public void moverFichaEsquerda() {
         if (validar('e')) {
             fichaActual.moverEsquerda();
-        } 
+        }
     }
+
+
+    public boolean chocarFichaCoChan() {
+        for (int contador = 0; contador < fichaActual.cadrados.size(); contador++) {
+            if (chocarChan(fichaActual.cadrados.get(contador).x, fichaActual.cadrados.get(contador).y)) {
+
     
     public void rotarFicha(){
         fichaActual.rotar();
@@ -86,93 +99,91 @@ public class Xogo {
     public boolean chocarFichaCoChan(){
         for(int contador=0;contador<fichaActual.cadrados.size() ;contador++){
             if(chocarChan(fichaActual.cadrados.get(contador).x, fichaActual.cadrados.get(contador).y)){
+
                 return true;
             }
         }
         return false;
     }
-    
-    public void engadirFichaAoChan(){
+
+    public void engadirFichaAoChan() {
         cadradosChan.addAll(fichaActual.cadrados);
         xenerarNovaFicha();
     }
-    
-    public void borrarLinasCompletas(){
+
+    public void borrarLinasCompletas() {
         ordenar();
-        ArrayList <Cadrado> temporal = cadradosChan;
-        for(int contador = 0; contador<cadradosChan.size(); contador++){
-            if(temporal.isEmpty()){
+        ArrayList<Cadrado> temporal = cadradosChan;
+        for (int contador = 0; contador < cadradosChan.size(); contador++) {
+            if (temporal.isEmpty()) {
                 temporal.add(cadradosChan.get(contador));
-            }
-            else if(temporal.get(0).y==cadradosChan.get(contador).y){
-               temporal.add(cadradosChan.get(contador));
-               if(temporal.size()==10){
-                  borrarLina(temporal.get(1).y);
-                  temporal.clear();
-                  contador=-10;
-               }
-            }
-            else{
+            } else if (temporal.get(0).y == cadradosChan.get(contador).y) {
+                temporal.add(cadradosChan.get(contador));
+                if (temporal.size() == 10) {
+                    borrarLina(temporal.get(1).y);
+                    temporal.clear();
+                    contador = -10;
+                }
+            } else {
                 temporal.clear();
             }
         }
     }
-    
-    public void borrarLina(int y){
-       for(int contador = 0; contador<cadradosChan.size(); contador++){
-           if(cadradosChan.get(contador).y==y){
-               ventana.borrarCadrado(cadradosChan.get(contador).lblCadrado);
-               contador--;
-           }
-       }
-       baixarCadrados(y);
-    }
-    
-    public boolean ePosicionValida(int x, int y){
-        if (validarXY(x,y)){
-            return true;
+
+    public void borrarLina(int y) {
+        for (int contador = 0; contador < cadradosChan.size(); contador++) {
+            if (cadradosChan.get(contador).y == y) {
+                ventana.borrarCadrado(cadradosChan.get(contador).lblCadrado);
+                contador--;
+            }
         }
-        else {
+        baixarCadrados(y);
+    }
+
+    public boolean ePosicionValida(int x, int y) {
+        if (validarXY(x, y)) {
+            return true;
+        } else {
             return false;
         }
     }
-    
-    private boolean validarXY(int x, int y){
-        return !cadradoEnXY(x, y) && x<maxX && y<maxY && x>=0 && y>=0;
+
+    private boolean validarXY(int x, int y) {
+        return !cadradoEnXY(x, y) && x < maxX && y < maxY && x >= 0 && y >= 0;
     }
-    
-    private boolean chocarChan(int x, int y){
-        if(cadradoEnXY(x,y) || y+ladoCadrado==maxY){
-          return true;  
+
+    private boolean chocarChan(int x, int y) {
+        if (cadradoEnXY(x, y) || y + ladoCadrado == maxY) {
+            return true;
         }
         return false;
     }
 
-    private boolean cadradoEnXY(int x, int y){
-        for(int contador = 0; contador<cadradosChan.size(); contador++){
-            if (x==cadradosChan.get(contador).x){
-                if(y==cadradosChan.get(contador).y){
+    private boolean cadradoEnXY(int x, int y) {
+        for (int contador = 0; contador < cadradosChan.size(); contador++) {
+            if (x == cadradosChan.get(contador).x) {
+                if (y == cadradosChan.get(contador).y) {
                     return true;
                 }
             }
         }
         return false;
     }
-    
-    private void baixarCadrados(int y){
-        for (int contador = 0; contador<cadradosChan.size(); contador++){
-            if(cadradosChan.get(contador).y>y){
-                cadradosChan.get(contador).y=-ladoCadrado;
+
+    private void baixarCadrados(int y) {
+        for (int contador = 0; contador < cadradosChan.size(); contador++) {
+            if (cadradosChan.get(contador).y > y) {
+                cadradosChan.get(contador).y = -ladoCadrado;
             }
         }
     }
-    
-    private void ordenar(){
+
+    private void ordenar() {
         Cadrado temporal;
-        for (int contador = 0; contador<cadradosChan.size()-1; contador++){
-            for (int contador2=contador+1; contador2<cadradosChan.size(); contador2++){
-                if (cadradosChan.get(contador).y>cadradosChan.get(contador2).y){
-                    temporal=cadradosChan.get(contador);
+        for (int contador = 0; contador < cadradosChan.size() - 1; contador++) {
+            for (int contador2 = contador + 1; contador2 < cadradosChan.size(); contador2++) {
+                if (cadradosChan.get(contador).y > cadradosChan.get(contador2).y) {
+                    temporal = cadradosChan.get(contador);
                     cadradosChan.remove(temporal);
                     cadradosChan.set(contador, cadradosChan.get(contador2));
                     cadradosChan.set(contador2, temporal);
@@ -180,7 +191,7 @@ public class Xogo {
             }
         }
     }
-    
+
     private boolean validar(char lado) {
         Iterator<Cadrado> iterCadrados = fichaActual.cadrados.iterator();
         while (iterCadrados.hasNext()) {
