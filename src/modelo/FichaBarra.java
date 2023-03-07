@@ -24,7 +24,7 @@ public class FichaBarra extends Ficha {
     
     public FichaBarra(Xogo xogo) {
         super(xogo);
-        
+        posicion = 1;
         cadrados.add(cadrado0);
         cadrados.add(cadrado1);
         cadrados.add(cadrado2);
@@ -44,6 +44,41 @@ public class FichaBarra extends Ficha {
     } 
 
     public boolean rotar() {
-        return true;
+        switch (posicion){
+            case 1:
+                if(xogo.ePosicionValida(cadrado0.x-xogo.ladoCadrado, cadrado0.y+xogo.ladoCadrado) &&
+                        xogo.ePosicionValida(cadrado2.x+xogo.ladoCadrado, cadrado2.y-xogo.ladoCadrado) &&
+                        xogo.ePosicionValida(cadrado3.x+xogo.ladoCadrado*2, cadrado3.y-xogo.ladoCadrado*2)){
+                    cadrado0.x=cadrado0.x-xogo.ladoCadrado;
+                    cadrado0.y=cadrado0.y+xogo.ladoCadrado;
+                    cadrado2.x=cadrado2.x+xogo.ladoCadrado;
+                    cadrado2.y=cadrado2.y-xogo.ladoCadrado;
+                    cadrado3.x=cadrado3.x+xogo.ladoCadrado*2;
+                    cadrado3.y=cadrado3.y-xogo.ladoCadrado*2;
+                    posicion = 2;
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            case 2:
+                if(xogo.ePosicionValida(cadrado0.x+xogo.ladoCadrado, cadrado0.y-xogo.ladoCadrado) &&
+                        xogo.ePosicionValida(cadrado2.x-xogo.ladoCadrado, cadrado2.y+xogo.ladoCadrado) &&
+                        xogo.ePosicionValida(cadrado3.x-xogo.ladoCadrado*2, cadrado3.y+xogo.ladoCadrado*2)){
+                    cadrado0.x=cadrado0.x+xogo.ladoCadrado;
+                    cadrado0.y=cadrado0.y-xogo.ladoCadrado;
+                    cadrado2.x=cadrado2.x-xogo.ladoCadrado;
+                    cadrado2.y=cadrado2.y+xogo.ladoCadrado;
+                    cadrado3.x=cadrado3.x-xogo.ladoCadrado*2;
+                    cadrado3.y=cadrado3.y+xogo.ladoCadrado*2;
+                    posicion = 1;
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            default:
+                return false;
+        }
     }
 }

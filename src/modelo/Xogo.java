@@ -32,13 +32,13 @@ public class Xogo {
 
     public boolean xenerarNovaFicha() {
         fichaActual = null;
-        int pieza = (int) (Math.random()*4);
+        int pieza = (int) (Math.random()*2);
         switch (pieza){
             case 0:
             default:
-                FichaCadrada fichaC = new FichaCadrada(this);
-                fichaActual = fichaC;
-                break;
+                //FichaCadrada fichaC = new FichaCadrada(this);
+                //fichaActual = fichaC;
+                //break;
             case 1:
                 FichaBarra fichaB = new FichaBarra(this);
                 fichaActual = fichaB;
@@ -77,6 +77,10 @@ public class Xogo {
         if (validar('e')) {
             fichaActual.moverEsquerda();
         } 
+    }
+    
+    public void rotarFicha(){
+        fichaActual.rotar();
     }
     
     public boolean chocarFichaCoChan(){
