@@ -41,9 +41,9 @@ public class Xogo {
     }
     
     public void moverFichaAbaixo(){
-        
         if(chocarFichaCoChan()){
             engadirFichaAoChan();
+            borrarLinasCompletas();
             xenerarNovaFicha();
         }
         else{
@@ -77,16 +77,13 @@ public class Xogo {
     }
     
     public void borrarLinasCompletas(){
-        for(int contador = 0; contador<cadradosChan.size(); contador++){
-            
-        }
-        
+        ordenar();
         ArrayList <Cadrado> temporal = cadradosChan;
         for(int contador = 0; contador<cadradosChan.size(); contador++){
             if(temporal.isEmpty()){
                 temporal.add(cadradosChan.get(contador));
             }
-            else if(temporal.get(1).y==cadradosChan.get(contador).y){
+            else if(temporal.get(0).y==cadradosChan.get(contador).y){
                temporal.add(cadradosChan.get(contador));
                if(temporal.size()==10){
                   borrarLina(temporal.get(1).y);
@@ -96,7 +93,6 @@ public class Xogo {
             }
             else{
                 temporal.clear();
-                temporal.add(cadradosChan.get(contador));
             }
         }
     }
@@ -108,6 +104,7 @@ public class Xogo {
                contador--;
            }
        }
+       baixarCadrados(y);
     }
     
     public boolean ePosicionValida(int x, int y){
@@ -143,7 +140,7 @@ public class Xogo {
     
     private void baixarCadrados(int y){
         for (int contador = 0; contador<cadradosChan.size(); contador++){
-            if(cadradosChan.get(contador).y<y){
+            if(cadradosChan.get(contador).y>y){
                 cadradosChan.get(contador).y=-ladoCadrado;
             }
         }
