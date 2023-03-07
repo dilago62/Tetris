@@ -31,19 +31,25 @@ public class Xogo {
     }
 
     public boolean xenerarNovaFicha() {
+        fichaActual = null;
         int pieza = (int) (Math.random()*4);
         switch (pieza){
             case 0:
-                fichaActual = new FichaCadrada(this);
+            default:
+                FichaCadrada fichaC = new FichaCadrada(this);
+                fichaActual = fichaC;
                 break;
             case 1:
-                fichaActual = new FichaBarra(this);
+                FichaBarra fichaB = new FichaBarra(this);
+                fichaActual = fichaB;
                 break;
             case 2:
-                fichaActual = new FichaL(this);
+                FichaL fichaL = new FichaL(this);
+                fichaActual = fichaL;
                 break;
             case 3:
-                fichaActual = new FichaT(this);
+                FichaT fichaT = new FichaT(this);
+                fichaActual = fichaT;
                 break;
         }
         
@@ -55,7 +61,6 @@ public class Xogo {
         if(chocarFichaCoChan()){
             engadirFichaAoChan();
             borrarLinasCompletas();
-            xenerarNovaFicha();
         }
         else{
             fichaActual.moverAbaixo();
@@ -85,6 +90,7 @@ public class Xogo {
     
     public void engadirFichaAoChan(){
         cadradosChan.addAll(fichaActual.cadrados);
+        xenerarNovaFicha();
     }
     
     public void borrarLinasCompletas(){
