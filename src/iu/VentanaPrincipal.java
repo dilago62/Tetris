@@ -26,6 +26,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     int segundos = 0;
     int minutos = 0;
     int horas = 0;
+    private Timer caida;
+    private int dificultad; 
 
     /**
      * Creates new form VentanaPrincipal
@@ -37,7 +39,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
 
         public void paint(Graphics grafico) {
-            Dimension height = getSize();
             ImageIcon Img = new ImageIcon(getClass().getResource("/Images/tetris4.png"));
             grafico.drawImage(Img.getImage(), 0, 0, 320, 640, null);
 
@@ -54,10 +55,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public VentanaPrincipal() {
 
         initComponents();
+        dificultad=1;
+        int tiempoCaida = 850-dificultad*50;
         xogo.xenerarNovaFicha();
         panelXogo.setFocusable(true);
         tiempo = new Timer(10, acciones);
-
+        caida = new Timer(tiempoCaida, new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                xogo.moverFichaAbaixo();   
+            }
+        });
     }
 
     private ActionListener acciones = new ActionListener() {
@@ -107,7 +114,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jFrame1 = new javax.swing.JFrame();
         panelXogo = new javax.swing.JPanel();
         jToggleButton2 = new javax.swing.JToggleButton();
-        jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -136,7 +142,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGap(0, 640, Short.MAX_VALUE)
         );
 
-        jToggleButton2.setIcon(new javax.swing.ImageIcon("C:\\Users\\a22alejandrofc\\Downloads\\button (2).png")); // NOI18N
         jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton2ActionPerformed(evt);
@@ -145,7 +150,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Source Serif Pro Black", 1, 36)); // NOI18N
         jLabel3.setText("00:00:00:00");
-
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -180,7 +184,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(700, 900));
         setResizable(false);
 
-        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\a22alejandrofc\\Downloads\\button (1).png")); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -192,15 +195,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\a22alejandrofc\\Downloads\\tetris.png")); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/tetris.png"))); // NOI18N
         jLabel2.setPreferredSize(new java.awt.Dimension(300, 300));
         jLabel2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jLabel2KeyPressed(evt);
             }
         });
-
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\a22alejandrofc\\Downloads\\628a738ebc2ec7ad957f4072.png")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -240,8 +241,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         if (tiempo.isRunning()) {
             tiempo.stop();
+            caida.stop();
         } else {
             tiempo.start();
+            caida.start();
         }
 
         // TODO add your handling code here:
@@ -256,6 +259,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         panelXogo.add(Imagen);
         panelXogo.repaint();
         tiempo.start();
+        caida.start();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jLabel2KeyPressed
@@ -275,8 +279,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         int key = evt.getKeyCode();
         if (key == KeyEvent.VK_DOWN) {
-
-            xogo.fichaActual.moverAbaixo();
+            xogo.moverFichaAbaixo();
         }
         if (key == KeyEvent.VK_RIGHT) {
             xogo.moverFichaDereita();
