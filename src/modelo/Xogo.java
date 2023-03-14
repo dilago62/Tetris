@@ -61,8 +61,7 @@ public class Xogo {
     public void moverFichaAbaixo() {
         if (chocarFichaCoChan()) {
             engadirFichaAoChan();
-
-            
+            borrarLinasCompletas();
         } else {
             getFichaActual().moverAbaixo();
         }
@@ -100,19 +99,17 @@ public class Xogo {
     }
 
     public void borrarLinasCompletas() {
-        ArrayList<Cadrado> temporal = getCadradosChan();
-        for (int contador = 0; contador < getCadradosChan().size(); contador++) {
-            if (temporal.isEmpty()) {
-                temporal.add(getCadradosChan().get(contador));
-            } else if (temporal.get(0).getY() == getCadradosChan().get(contador).getY()) {
-                temporal.add(getCadradosChan().get(contador));
-                if (temporal.size() == 10) {
-                    borrarLina(temporal.get(1).getY());
-                    temporal.clear();
-                    contador = -10;
+        int cadradosFila = 0;
+        for (int contador = 0; contador < cadradosChan.size(); contador++) {
+            for(int contador2 = 0; contador< cadradosChan.size(); contador2++){
+                if(cadradosChan.get(contador).getY()==cadradosChan.get(contador2).getY()){
+                    cadradosFila++;
+                    if (cadradosFila==10){
+                        borrarLina(cadradosChan.get(contador).getY());
+                        cadradosFila = 0;
+                        contador2=0;
+                    }
                 }
-            } else {
-                temporal.clear();
             }
         }
     }
@@ -159,9 +156,9 @@ public class Xogo {
     }
 
     private void baixarCadrados(int y) {
-        for (int contador = 0; contador < getCadradosChan().size(); contador++) {
-            if (getCadradosChan().get(contador).getY() > y) {
-                cadradosChan.get(contador).setY(-getLadoCadrado());
+        for (int contador = 0; contador < cadradosChan.size(); contador++) {
+            if (cadradosChan.get(contador).getY() > y) {
+                cadradosChan.get(contador).setY(-ladoCadrado);
             }
         }
     }
@@ -199,86 +196,50 @@ public class Xogo {
         this.maxX = maxX;
     }
 
-    /**
-     * @return the maxY
-     */
     public int getMaxY() {
         return maxY;
     }
 
-    /**
-     * @param maxY the maxY to set
-     */
     public void setMaxY(int maxY) {
         this.maxY = maxY;
     }
 
-    /**
-     * @return the pausa
-     */
     public boolean isPausa() {
         return pausa;
     }
 
-    /**
-     * @param pausa the pausa to set
-     */
     public void setPausa(boolean pausa) {
         this.pausa = pausa;
     }
 
-    /**
-     * @return the numeroLineas
-     */
     public int getNumeroLineas() {
         return numeroLineas;
     }
 
-    /**
-     * @param numeroLineas the numeroLineas to set
-     */
     public void setNumeroLineas(int numeroLineas) {
         this.numeroLineas = numeroLineas;
     }
 
-    /**
-     * @return the cadradosChan
-     */
     public ArrayList<Cadrado> getCadradosChan() {
         return cadradosChan;
     }
 
-    /**
-     * @param cadradosChan the cadradosChan to set
-     */
     public void setCadradosChan(ArrayList<Cadrado> cadradosChan) {
         this.cadradosChan = cadradosChan;
     }
 
-    /**
-     * @return the fichaActual
-     */
     public Ficha getFichaActual() {
         return fichaActual;
     }
 
-    /**
-     * @param fichaActual the fichaActual to set
-     */
     public void setFichaActual(Ficha fichaActual) {
         this.fichaActual = fichaActual;
     }
 
-    /**
-     * @return the ventana
-     */
     public VentanaPrincipal getVentana() {
         return ventana;
     }
 
-    /**
-     * @param ventana the ventana to set
-     */
     public void setVentana(VentanaPrincipal ventana) {
         this.ventana = ventana;
     }

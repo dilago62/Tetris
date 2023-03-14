@@ -29,58 +29,34 @@ public class Cadrado {
         return getX() + " " + getY();
     }
 
-    /**
-     * @return the x
-     */
     public int getX() {
         return x;
     }
 
-    /**
-     * @param x the x to set
-     */
     public void setX(int x) {
         this.x = x;
     }
 
-    /**
-     * @return the y
-     */
     public int getY() {
         return y;
     }
 
-    /**
-     * @param y the y to set
-     */
     public void setY(int y) {
         this.y = y;
     }
 
-    /**
-     * @return the corRecheo
-     */
     public Color getCorRecheo() {
         return corRecheo;
     }
 
-    /**
-     * @param corRecheo the corRecheo to set
-     */
     public void setCorRecheo(Color corRecheo) {
         this.corRecheo = corRecheo;
     }
 
-    /**
-     * @return the lblCadrado
-     */
     public JLabel getLblCadrado() {
         return lblCadrado;
     }
 
-    /**
-     * @param lblCadrado the lblCadrado to set
-     */
     public void setLblCadrado(JLabel lblCadrado) {
         this.lblCadrado = lblCadrado;
     }

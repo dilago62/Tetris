@@ -252,6 +252,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         } else {
             tiempo.start();
             caida.start();
+            panelXogo.requestFocus();
         }
 
         // TODO add your handling code here:
@@ -343,16 +344,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel panelXogo;
     // End of variables declaration//GEN-END:variables
 
-    /**
-     * @return the xogo
-     */
     public Xogo getXogo() {
         return xogo;
     }
 
-    /**
-     * @param xogo the xogo to set
-     */
     public void setXogo(Xogo xogo) {
         this.xogo = xogo;
     }
