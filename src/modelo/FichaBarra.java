@@ -5,80 +5,79 @@
 package modelo;
 
 import java.awt.Color;
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
-import javax.swing.border.Border;
 
 /**
  *
  * @author a22davidil
  */
 public class FichaBarra extends Ficha {
-    
-    Cadrado cadrado0 = new Cadrado(4*xogo.ladoCadrado,0, Color.CYAN, xogo.ladoCadrado);
-    Cadrado cadrado1 = new Cadrado(4*xogo.ladoCadrado,xogo.ladoCadrado, Color.CYAN, xogo.ladoCadrado);
-    Cadrado cadrado2 = new Cadrado(4*xogo.ladoCadrado,xogo.ladoCadrado*2, Color.CYAN, xogo.ladoCadrado);
-    Cadrado cadrado3 = new Cadrado(4*xogo.ladoCadrado,xogo.ladoCadrado*3, Color.CYAN, xogo.ladoCadrado);
-    Border borde;
-    int posicion;
-    
+
+    private Cadrado cadrado0 = new Cadrado(4 * getXogo().getLadoCadrado(), 0, Color.CYAN, getXogo().getLadoCadrado());
+    private Cadrado cadrado1 = new Cadrado(4 * getXogo().getLadoCadrado(), getXogo().getLadoCadrado(), Color.CYAN, getXogo().getLadoCadrado());
+    private Cadrado cadrado2 = new Cadrado(4 * getXogo().getLadoCadrado(), getXogo().getLadoCadrado() * 2, Color.CYAN, getXogo().getLadoCadrado());
+    private Cadrado cadrado3 = new Cadrado(4 * getXogo().getLadoCadrado(), getXogo().getLadoCadrado() * 3, Color.CYAN, getXogo().getLadoCadrado());
+    private int posicion;
+
     public FichaBarra(Xogo xogo) {
         super(xogo);
-        posicion = 1;
+        posicion = 0;
         cadrados.add(cadrado0);
         cadrados.add(cadrado1);
         cadrados.add(cadrado2);
         cadrados.add(cadrado3);
-
-        for (int i = 0; i < cadrados.size(); i++) {
-            
-            borde = BorderFactory.createLineBorder(Color.black);
-            cadrados.get(i).lblCadrado = new JLabel();
-            cadrados.get(i).lblCadrado.setBorder(borde);
-            cadrados.get(i).lblCadrado.setBackground(cadrados.get(i).corRecheo);
-            cadrados.get(i).lblCadrado.setOpaque(true);
-            cadrados.get(i).lblCadrado.setSize(xogo.ladoCadrado, xogo.ladoCadrado);
-            cadrados.get(i).lblCadrado.setLocation(cadrados.get(i).x, cadrados.get(i).y);
-        }
-       
-    } 
+        pintarLabels(xogo);
+    }
 
     public boolean rotar() {
-        switch (posicion){
-            case 1:
-                if(xogo.ePosicionValida(cadrado0.x-xogo.ladoCadrado, cadrado0.y+xogo.ladoCadrado) &&
-                        xogo.ePosicionValida(cadrado2.x+xogo.ladoCadrado, cadrado2.y-xogo.ladoCadrado) &&
-                        xogo.ePosicionValida(cadrado3.x+xogo.ladoCadrado*2, cadrado3.y-xogo.ladoCadrado*2)){
-                    cadrado0.x=cadrado0.x-xogo.ladoCadrado;
-                    cadrado0.y=cadrado0.y+xogo.ladoCadrado;
-                    cadrado2.x=cadrado2.x+xogo.ladoCadrado;
-                    cadrado2.y=cadrado2.y-xogo.ladoCadrado;
-                    cadrado3.x=cadrado3.x+xogo.ladoCadrado*2;
-                    cadrado3.y=cadrado3.y-xogo.ladoCadrado*2;
-                    posicion = 2;
+        switch (posicion) {
+            case 0:
+                if (comprobar0()) {
+                    rotar0();
                     return true;
-                }
-                else{
+                } else {
                     return false;
                 }
-            case 2:
-                if(xogo.ePosicionValida(cadrado0.x+xogo.ladoCadrado, cadrado0.y-xogo.ladoCadrado) &&
-                        xogo.ePosicionValida(cadrado2.x-xogo.ladoCadrado, cadrado2.y+xogo.ladoCadrado) &&
-                        xogo.ePosicionValida(cadrado3.x-xogo.ladoCadrado*2, cadrado3.y+xogo.ladoCadrado*2)){
-                    cadrado0.x=cadrado0.x+xogo.ladoCadrado;
-                    cadrado0.y=cadrado0.y-xogo.ladoCadrado;
-                    cadrado2.x=cadrado2.x-xogo.ladoCadrado;
-                    cadrado2.y=cadrado2.y+xogo.ladoCadrado;
-                    cadrado3.x=cadrado3.x-xogo.ladoCadrado*2;
-                    cadrado3.y=cadrado3.y+xogo.ladoCadrado*2;
-                    posicion = 1;
+            case 1:
+                if (comprobar1()) {
+                    rotar1();
                     return true;
-                }
-                else{
+                } else {
                     return false;
                 }
             default:
                 return false;
         }
+    }
+
+    private boolean comprobar0() {
+        return getXogo().ePosicionValida(cadrado0.getX() - getXogo().getLadoCadrado(), cadrado0.getY() + getXogo().getLadoCadrado())
+                && getXogo().ePosicionValida(cadrado2.getX() + getXogo().getLadoCadrado(), cadrado2.getY() - getXogo().getLadoCadrado())
+                && getXogo().ePosicionValida(cadrado3.getX() + getXogo().getLadoCadrado() * 2, cadrado3.getY() - getXogo().getLadoCadrado() * 2);
+    }
+
+    private boolean comprobar1() {
+        return getXogo().ePosicionValida(cadrado0.getX() + getXogo().getLadoCadrado(), cadrado0.getY() - getXogo().getLadoCadrado())
+                && getXogo().ePosicionValida(cadrado2.getX() - getXogo().getLadoCadrado(), cadrado2.getY() + getXogo().getLadoCadrado())
+                && getXogo().ePosicionValida(cadrado3.getX() - getXogo().getLadoCadrado() * 2, cadrado3.getY() + getXogo().getLadoCadrado() * 2);
+    }
+
+    private void rotar0() {
+        cadrado0.setX(cadrado0.getX() - getXogo().getLadoCadrado());
+        cadrado0.setY(cadrado0.getY() + getXogo().getLadoCadrado());
+        cadrado2.setX(cadrado2.getX() + getXogo().getLadoCadrado());
+        cadrado2.setY(cadrado2.getY() - getXogo().getLadoCadrado());
+        cadrado3.setX(cadrado3.getX() + getXogo().getLadoCadrado() * 2);
+        cadrado3.setY(cadrado3.getY() - getXogo().getLadoCadrado() * 2);
+        posicion = 1;
+    }
+
+    private void rotar1() {
+        cadrado0.setX(cadrado0.getX() + getXogo().getLadoCadrado());
+        cadrado0.setY(cadrado0.getY() - getXogo().getLadoCadrado());
+        cadrado2.setX(cadrado2.getX() - getXogo().getLadoCadrado());
+        cadrado2.setY(cadrado2.getY() + getXogo().getLadoCadrado());
+        cadrado3.setX(cadrado3.getX() - getXogo().getLadoCadrado() * 2);
+        cadrado3.setY(cadrado3.getY() + getXogo().getLadoCadrado() * 2);
+        posicion = 0;
     }
 }

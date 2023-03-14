@@ -13,15 +13,15 @@ import java.util.Iterator;
  */
 public class Xogo {
 
-    public int ladoCadrado = 32;
-    public int maxX = 320;
-    public int maxY = 640;
-    public boolean pausa;
-    public int numeroLineas = 0;
-    public ArrayList<Cadrado> cadradosChan = new ArrayList();
-    public Ficha fichaActual;
+    private int ladoCadrado = 32;
+    private int maxX = ladoCadrado*10;
+    private int maxY = ladoCadrado*20;
+    private boolean pausa;
+    private int numeroLineas = 0;
+    private ArrayList<Cadrado> cadradosChan = new ArrayList();
+    private Ficha fichaActual;
     private Iterator<Cadrado> cadrados;
-    public VentanaPrincipal ventana;
+    private VentanaPrincipal ventana;
 
     public Xogo(VentanaPrincipal ventana) {
 
@@ -30,36 +30,29 @@ public class Xogo {
 
     public boolean xenerarNovaFicha() {
 
-        
-
         int pieza = (int) (Math.random() * 4);
-        pieza++;
         switch (pieza) {
-
-        fichaActual = null;
-        int pieza = (int) (Math.random()*2);
-        switch (pieza){
 
             case 0:
             default:
-                //FichaCadrada fichaC = new FichaCadrada(this);
-                //fichaActual = fichaC;
-                //break;
+                FichaCadrada fichaC = new FichaCadrada(this);
+                setFichaActual(fichaC);
+                break;
             case 1:
                 FichaBarra fichaB = new FichaBarra(this);
-                fichaActual = fichaB;
+                setFichaActual(fichaB);
                 break;
             case 2:
                 FichaL fichaL = new FichaL(this);
-                fichaActual = fichaL;
+                setFichaActual(fichaL);
                 break;
             case 3:
                 FichaT fichaT = new FichaT(this);
-                fichaActual = fichaT;
+                setFichaActual(fichaT);
                 break;
         }
-        for (int contador = 0; contador < fichaActual.cadrados.size(); contador++) {
-            ventana.pintarCadrado(fichaActual.cadrados.get(contador).lblCadrado);
+        for (int contador = 0; contador < getFichaActual().getCadrados().size(); contador++) {
+            getVentana().pintarCadrado(getFichaActual().getCadrados().get(contador).getLblCadrado());
         }
 
         return true;
@@ -69,36 +62,31 @@ public class Xogo {
         if (chocarFichaCoChan()) {
             engadirFichaAoChan();
 
+            
         } else {
-            fichaActual.moverAbaixo();
+            getFichaActual().moverAbaixo();
         }
     }
 
     public void moverFichaDereita() {
         if (validar('d')) {
-            fichaActual.moverDereita();
+            getFichaActual().moverDereita();
         }
     }
 
     public void moverFichaEsquerda() {
         if (validar('e')) {
-            fichaActual.moverEsquerda();
+            getFichaActual().moverEsquerda();
         }
     }
 
+    public void rotarFicha() {
+        getFichaActual().rotar();
+    }
 
     public boolean chocarFichaCoChan() {
-        for (int contador = 0; contador < fichaActual.cadrados.size(); contador++) {
-            if (chocarChan(fichaActual.cadrados.get(contador).x, fichaActual.cadrados.get(contador).y)) {
-
-    
-    public void rotarFicha(){
-        fichaActual.rotar();
-    }
-    
-    public boolean chocarFichaCoChan(){
-        for(int contador=0;contador<fichaActual.cadrados.size() ;contador++){
-            if(chocarChan(fichaActual.cadrados.get(contador).x, fichaActual.cadrados.get(contador).y)){
+        for (int contador = 0; contador < getFichaActual().getCadrados().size(); contador++) {
+            if (chocarChan(getFichaActual().getCadrados().get(contador).getX(), getFichaActual().getCadrados().get(contador).getY())) {
 
                 return true;
             }
@@ -107,20 +95,19 @@ public class Xogo {
     }
 
     public void engadirFichaAoChan() {
-        cadradosChan.addAll(fichaActual.cadrados);
+        getCadradosChan().addAll(getFichaActual().getCadrados());
         xenerarNovaFicha();
     }
 
     public void borrarLinasCompletas() {
-        ordenar();
-        ArrayList<Cadrado> temporal = cadradosChan;
-        for (int contador = 0; contador < cadradosChan.size(); contador++) {
+        ArrayList<Cadrado> temporal = getCadradosChan();
+        for (int contador = 0; contador < getCadradosChan().size(); contador++) {
             if (temporal.isEmpty()) {
-                temporal.add(cadradosChan.get(contador));
-            } else if (temporal.get(0).y == cadradosChan.get(contador).y) {
-                temporal.add(cadradosChan.get(contador));
+                temporal.add(getCadradosChan().get(contador));
+            } else if (temporal.get(0).getY() == getCadradosChan().get(contador).getY()) {
+                temporal.add(getCadradosChan().get(contador));
                 if (temporal.size() == 10) {
-                    borrarLina(temporal.get(1).y);
+                    borrarLina(temporal.get(1).getY());
                     temporal.clear();
                     contador = -10;
                 }
@@ -131,9 +118,10 @@ public class Xogo {
     }
 
     public void borrarLina(int y) {
-        for (int contador = 0; contador < cadradosChan.size(); contador++) {
-            if (cadradosChan.get(contador).y == y) {
-                ventana.borrarCadrado(cadradosChan.get(contador).lblCadrado);
+        for (int contador = 0; contador < getCadradosChan().size(); contador++) {
+            if (getCadradosChan().get(contador).getY() == y) {
+                getVentana().borrarCadrado(getCadradosChan().get(contador).getLblCadrado());
+                getCadradosChan().remove(getCadradosChan().get(contador));
                 contador--;
             }
         }
@@ -149,20 +137,20 @@ public class Xogo {
     }
 
     private boolean validarXY(int x, int y) {
-        return !cadradoEnXY(x, y) && x < maxX && y < maxY && x >= 0 && y >= 0;
+        return !cadradoEnXY(x, y) && x < getMaxX() && y < getMaxY() && x >= 0 && y >= 0;
     }
 
     private boolean chocarChan(int x, int y) {
-        if (cadradoEnXY(x, y) || y + ladoCadrado == maxY) {
+        if (cadradoEnXY(x, y+ladoCadrado) || y + getLadoCadrado() == getMaxY()) {
             return true;
         }
         return false;
     }
 
     private boolean cadradoEnXY(int x, int y) {
-        for (int contador = 0; contador < cadradosChan.size(); contador++) {
-            if (x == cadradosChan.get(contador).x) {
-                if (y == cadradosChan.get(contador).y) {
+        for (int contador = 0; contador < getCadradosChan().size(); contador++) {
+            if (x == getCadradosChan().get(contador).getX()) {
+                if (y == getCadradosChan().get(contador).getY()) {
                     return true;
                 }
             }
@@ -171,41 +159,127 @@ public class Xogo {
     }
 
     private void baixarCadrados(int y) {
-        for (int contador = 0; contador < cadradosChan.size(); contador++) {
-            if (cadradosChan.get(contador).y > y) {
-                cadradosChan.get(contador).y = -ladoCadrado;
-            }
-        }
-    }
-
-    private void ordenar() {
-        Cadrado temporal;
-        for (int contador = 0; contador < cadradosChan.size() - 1; contador++) {
-            for (int contador2 = contador + 1; contador2 < cadradosChan.size(); contador2++) {
-                if (cadradosChan.get(contador).y > cadradosChan.get(contador2).y) {
-                    temporal = cadradosChan.get(contador);
-                    cadradosChan.remove(temporal);
-                    cadradosChan.set(contador, cadradosChan.get(contador2));
-                    cadradosChan.set(contador2, temporal);
-                }
+        for (int contador = 0; contador < getCadradosChan().size(); contador++) {
+            if (getCadradosChan().get(contador).getY() > y) {
+                cadradosChan.get(contador).setY(-getLadoCadrado());
             }
         }
     }
 
     private boolean validar(char lado) {
-        Iterator<Cadrado> iterCadrados = fichaActual.cadrados.iterator();
+        Iterator<Cadrado> iterCadrados = getFichaActual().getCadrados().iterator();
         while (iterCadrados.hasNext()) {
             Cadrado temporal = iterCadrados.next();
             if (lado == 'e') {
-                if (!ePosicionValida(temporal.x - ladoCadrado, temporal.y)) {
+                if (!ePosicionValida(temporal.getX() - ladoCadrado, temporal.getY())) {
                     return false;
                 }
             } else if (lado == 'd') {
-                if (!ePosicionValida(temporal.x + ladoCadrado, temporal.y)) {
+                if (!ePosicionValida(temporal.getX() + ladoCadrado, temporal.getY())) {
                     return false;
                 }
             }
         }
         return true;
+    }
+
+    public int getLadoCadrado() {
+        return ladoCadrado;
+    }
+
+    public void setLadoCadrado(int ladoCadrado) {
+        this.ladoCadrado = ladoCadrado;
+    }
+
+    public int getMaxX() {
+        return maxX;
+    }
+
+    public void setMaxX(int maxX) {
+        this.maxX = maxX;
+    }
+
+    /**
+     * @return the maxY
+     */
+    public int getMaxY() {
+        return maxY;
+    }
+
+    /**
+     * @param maxY the maxY to set
+     */
+    public void setMaxY(int maxY) {
+        this.maxY = maxY;
+    }
+
+    /**
+     * @return the pausa
+     */
+    public boolean isPausa() {
+        return pausa;
+    }
+
+    /**
+     * @param pausa the pausa to set
+     */
+    public void setPausa(boolean pausa) {
+        this.pausa = pausa;
+    }
+
+    /**
+     * @return the numeroLineas
+     */
+    public int getNumeroLineas() {
+        return numeroLineas;
+    }
+
+    /**
+     * @param numeroLineas the numeroLineas to set
+     */
+    public void setNumeroLineas(int numeroLineas) {
+        this.numeroLineas = numeroLineas;
+    }
+
+    /**
+     * @return the cadradosChan
+     */
+    public ArrayList<Cadrado> getCadradosChan() {
+        return cadradosChan;
+    }
+
+    /**
+     * @param cadradosChan the cadradosChan to set
+     */
+    public void setCadradosChan(ArrayList<Cadrado> cadradosChan) {
+        this.cadradosChan = cadradosChan;
+    }
+
+    /**
+     * @return the fichaActual
+     */
+    public Ficha getFichaActual() {
+        return fichaActual;
+    }
+
+    /**
+     * @param fichaActual the fichaActual to set
+     */
+    public void setFichaActual(Ficha fichaActual) {
+        this.fichaActual = fichaActual;
+    }
+
+    /**
+     * @return the ventana
+     */
+    public VentanaPrincipal getVentana() {
+        return ventana;
+    }
+
+    /**
+     * @param ventana the ventana to set
+     */
+    public void setVentana(VentanaPrincipal ventana) {
+        this.ventana = ventana;
     }
 }
