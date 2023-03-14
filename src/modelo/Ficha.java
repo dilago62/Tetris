@@ -61,44 +61,26 @@ public abstract class Ficha {
     }
     public abstract boolean rotar();
 
-    /**
-     * @return the cadrados
-     */
     public ArrayList<Cadrado> getCadrados() {
         return cadrados;
     }
 
-    /**
-     * @param cadrados the cadrados to set
-     */
     public void setCadrados(ArrayList<Cadrado> cadrados) {
         this.cadrados = cadrados;
     }
 
-    /**
-     * @return the xogo
-     */
     public Xogo getXogo() {
         return xogo;
     }
 
-    /**
-     * @param xogo the xogo to set
-     */
     public void setXogo(Xogo xogo) {
         this.xogo = xogo;
     }
 
-    /**
-     * @return the borde
-     */
     protected Border getBorde() {
         return borde;
     }
 
-    /**
-     * @param borde the borde to set
-     */
     protected void setBorde(Border borde) {
         this.borde = borde;
     }
