@@ -10,8 +10,6 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import modelo.Xogo;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import javax.swing.border.Border;
 import javax.swing.Timer;
 
 /**
@@ -20,12 +18,12 @@ import javax.swing.Timer;
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
 
-    public Xogo xogo = new Xogo(this);
+    private Xogo xogo = new Xogo(this);
     private Timer tiempo;
-    int centesimas = 0;
-    int segundos = 0;
-    int minutos = 0;
-    int horas = 0;
+    private int centesimas = 0;
+    private int segundos = 0;
+    private int minutos = 0;
+    private int horas = 0;
     private Timer caida;
     private int dificultad; 
 
@@ -39,7 +37,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
 
         public void paint(Graphics grafico) {
-            ImageIcon Img = new ImageIcon(getClass().getResource("/Images/tetris4.png"));
+            ImageIcon Img = new ImageIcon(getClass().getResource("/Images/tetris4_transparente.png"));
             grafico.drawImage(Img.getImage(), 0, 0, 320, 640, null);
 
         }
@@ -62,7 +60,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         tiempo = new Timer(10, acciones);
         caida = new Timer(tiempoCaida, new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                xogo.moverFichaAbaixo();   
+                getXogo().moverFichaAbaixo();
             }
         });
     }
@@ -92,10 +90,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     public void pintarCadrado(JLabel lblCadrado) {
         panelXogo.add(lblCadrado);
+        panelXogo.updateUI();
     }
     
     public void borrarCadrado(JLabel lblCadrado){
+        lblCadrado.setVisible(false);
         panelXogo.remove(lblCadrado);
+        panelXogo.updateUI();
     }
     
     /**
@@ -261,9 +262,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jFrame1.setVisible(true);
 
-        Imagen Imagen = new Imagen();
-        panelXogo.add(Imagen);
-        panelXogo.repaint();
+        /*Imagen Imagen = new Imagen();
+        panelXogo.add(Imagen);*/
         tiempo.start();
         caida.start();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -276,25 +276,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1KeyPressed
-
-    public void mensaxe(){
-        jLabel1.setText("Nueva ficha creada");
-    }
-    
+  
     private void panelXogoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_panelXogoKeyPressed
 
         int key = evt.getKeyCode();
         if (key == KeyEvent.VK_DOWN) {
-            xogo.moverFichaAbaixo();
+            getXogo().moverFichaAbaixo();
         }
         if (key == KeyEvent.VK_RIGHT) {
-            xogo.moverFichaDereita();
+            getXogo().moverFichaDereita();
         }
         if (key == KeyEvent.VK_LEFT) {
-            xogo.moverFichaEsquerda();
+            getXogo().moverFichaEsquerda();
         }
         if (key == KeyEvent.VK_UP) {
-            xogo.rotarFicha();
+            getXogo().rotarFicha();
         }
         repaint();
 
@@ -346,5 +342,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JPanel panelXogo;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @return the xogo
+     */
+    public Xogo getXogo() {
+        return xogo;
+    }
+
+    /**
+     * @param xogo the xogo to set
+     */
+    public void setXogo(Xogo xogo) {
+        this.xogo = xogo;
+    }
 
 }

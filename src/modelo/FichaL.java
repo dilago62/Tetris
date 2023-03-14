@@ -5,9 +5,6 @@
 package modelo;
 
 import java.awt.Color;
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
-import javax.swing.border.Border;
 
 /**
  *
@@ -15,12 +12,11 @@ import javax.swing.border.Border;
  */
 public class FichaL extends Ficha {
 
-    Cadrado cadrado0 = new Cadrado(4 * xogo.ladoCadrado, 0, Color.ORANGE, xogo.ladoCadrado);
-    Cadrado cadrado1 = new Cadrado(4 * xogo.ladoCadrado, xogo.ladoCadrado, Color.ORANGE, xogo.ladoCadrado);
-    Cadrado cadrado2 = new Cadrado(4 * xogo.ladoCadrado, xogo.ladoCadrado * 2, Color.ORANGE, xogo.ladoCadrado);
-    Cadrado cadrado3 = new Cadrado(5 * xogo.ladoCadrado, xogo.ladoCadrado * 2, Color.ORANGE, xogo.ladoCadrado);
-    Border borde;
-    int posicion;
+    private Cadrado cadrado0 = new Cadrado(4 * getXogo().getLadoCadrado(), 0, Color.ORANGE, getXogo().getLadoCadrado());
+    private Cadrado cadrado1 = new Cadrado(4 * getXogo().getLadoCadrado(), getXogo().getLadoCadrado(), Color.ORANGE, getXogo().getLadoCadrado());
+    private Cadrado cadrado2 = new Cadrado(4 * getXogo().getLadoCadrado(), getXogo().getLadoCadrado() * 2, Color.ORANGE, getXogo().getLadoCadrado());
+    private Cadrado cadrado3 = new Cadrado(5 * getXogo().getLadoCadrado(), getXogo().getLadoCadrado() * 2, Color.ORANGE, getXogo().getLadoCadrado());
+    private int posicion;
 
     public FichaL(Xogo xogo) {
         super(xogo);
@@ -29,23 +25,107 @@ public class FichaL extends Ficha {
         cadrados.add(cadrado1);
         cadrados.add(cadrado2);
         cadrados.add(cadrado3);
-
-        for (int i = 0; i < cadrados.size(); i++) {
-
-            borde = BorderFactory.createLineBorder(Color.black);
-            cadrados.get(i).lblCadrado = new JLabel();
-            cadrados.get(i).lblCadrado.setBorder(borde);
-            cadrados.get(i).lblCadrado.setBackground(cadrados.get(i).corRecheo);
-            cadrados.get(i).lblCadrado.setOpaque(true);
-            cadrados.get(i).lblCadrado.setSize(xogo.ladoCadrado, xogo.ladoCadrado);
-            cadrados.get(i).lblCadrado.setLocation(cadrados.get(i).x, cadrados.get(i).y);
-        }
-       
-
+        pintarLabels(xogo);
     }
 
     public boolean rotar() {
-        return true;
+         switch (posicion){
+            case 0:
+                if (comprobar0()){
+                    rotar0();
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            case 1:
+                if (comprobar1()){
+                    rotar1();
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            case 2:
+                if (comprobar2()){
+                    rotar2();
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            case 3:
+                if (comprobar3()){
+                    rotar3();
+                    return true;
+                }
+                else{
+                    return false;
+                    
+                }
+            default:
+                return false;
+        }
     }
 
+    private void rotar0() {
+        cadrado0.setX(cadrado0.getX() - getXogo().getLadoCadrado());
+        cadrado0.setY(cadrado0.getY() + getXogo().getLadoCadrado());
+        cadrado2.setX(cadrado2.getX() + getXogo().getLadoCadrado());
+        cadrado2.setY(cadrado2.getY() - getXogo().getLadoCadrado());
+        cadrado3.setY(cadrado3.getY() - getXogo().getLadoCadrado()*2);
+        posicion = 1;
+    }
+
+    private boolean comprobar0() {
+        return getXogo().ePosicionValida(cadrado0.getX()-getXogo().getLadoCadrado(), cadrado0.getY()+getXogo().getLadoCadrado()) &&
+                getXogo().ePosicionValida(cadrado2.getX()+getXogo().getLadoCadrado(), cadrado2.getY()-getXogo().getLadoCadrado()) &&
+                getXogo().ePosicionValida(cadrado3.getX(), cadrado3.getY()-getXogo().getLadoCadrado()*2);
+    }
+
+    private void rotar3() {
+        cadrado0.setX(cadrado0.getX() - getXogo().getLadoCadrado());
+        cadrado0.setY(cadrado0.getY() - getXogo().getLadoCadrado());
+        cadrado2.setX(cadrado2.getX() + getXogo().getLadoCadrado());
+        cadrado2.setY(cadrado2.getY() + getXogo().getLadoCadrado());
+        cadrado3.setX(cadrado3.getX() + getXogo().getLadoCadrado()*2);
+        posicion = 0;
+    }
+
+    private boolean comprobar3() {
+        return getXogo().ePosicionValida(cadrado0.getX()-getXogo().getLadoCadrado(), cadrado0.getY()-getXogo().getLadoCadrado()) &&
+                getXogo().ePosicionValida(cadrado2.getX()+getXogo().getLadoCadrado(), cadrado2.getY()+getXogo().getLadoCadrado()) &&
+                getXogo().ePosicionValida(cadrado3.getX()+getXogo().getLadoCadrado()*2, cadrado3.getY());
+    }
+
+    private void rotar2() {
+        cadrado0.setX(cadrado0.getX() + getXogo().getLadoCadrado());
+        cadrado0.setY(cadrado0.getY() - getXogo().getLadoCadrado());
+        cadrado2.setX(cadrado2.getX() - getXogo().getLadoCadrado());
+        cadrado2.setY(cadrado2.getY() + getXogo().getLadoCadrado());
+        cadrado3.setY(cadrado3.getY() + getXogo().getLadoCadrado()*2);
+        posicion = 3;
+    }
+
+    private boolean comprobar2() {
+        return getXogo().ePosicionValida(cadrado0.getX()+getXogo().getLadoCadrado(), cadrado0.getY()-getXogo().getLadoCadrado()) &&
+                getXogo().ePosicionValida(cadrado2.getX()-getXogo().getLadoCadrado(), cadrado2.getY()+getXogo().getLadoCadrado()) &&
+                getXogo().ePosicionValida(cadrado3.getX(), cadrado3.getY()+getXogo().getLadoCadrado()*2);
+    }
+
+    private void rotar1() {
+        cadrado0.setX(cadrado0.getX() + getXogo().getLadoCadrado());
+        cadrado0.setY(cadrado0.getY() + getXogo().getLadoCadrado());
+        cadrado2.setX(cadrado2.getX() - getXogo().getLadoCadrado());
+        cadrado2.setY(cadrado2.getY() - getXogo().getLadoCadrado());
+        cadrado3.setX(cadrado3.getX() - getXogo().getLadoCadrado()*2);
+        posicion = 2;
+    }
+
+    private boolean comprobar1() {
+        return getXogo().ePosicionValida(cadrado0.getX()+getXogo().getLadoCadrado(), cadrado0.getY()+getXogo().getLadoCadrado()) &&
+                getXogo().ePosicionValida(cadrado2.getX()-getXogo().getLadoCadrado(), cadrado2.getY()-getXogo().getLadoCadrado()) &&
+                getXogo().ePosicionValida(cadrado3.getX()-getXogo().getLadoCadrado()*2, cadrado3.getY());
+    }
 }
+
