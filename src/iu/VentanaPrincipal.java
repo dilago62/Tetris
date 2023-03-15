@@ -25,7 +25,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private int minutos = 0;
     private int horas = 0;
     private Timer caida;
-    private int dificultad; 
+    private int dificultad;
+    private int tiempoCaida;
 
     /**
      * Creates new form VentanaPrincipal
@@ -33,7 +34,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public class Imagen extends javax.swing.JPanel {
 
         public Imagen() {
-            this.setSize(320, 640);
+            this.setSize(xogo.getMaxX(), xogo.getMaxY());
         }
 
         public void paint(Graphics grafico) {
@@ -53,18 +54,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public VentanaPrincipal() {
 
         initComponents();
-        dificultad=1;
-        int tiempoCaida = 850-dificultad*50;
+        tiempoCaida = 850-dificultad*200;
         xogo.xenerarNovaFicha();
         panelXogo.setFocusable(true);
         tiempo = new Timer(10, acciones);
-        caida = new Timer(tiempoCaida, new ActionListener() {
-            public void actionPerformed(ActionEvent e){
-                getXogo().moverFichaAbaixo();
-            }
-        });
+        caida = new Timer(tiempoCaida, caidaFicha);
     }
-
+    
+    private ActionListener caidaFicha = new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                dificultad = xogo.getNumeroLineas();
+                xogo.moverFichaAbaixo();
+                tiempoCaida = 850-dificultad*200;
+            }
+        };
+    
     private ActionListener acciones = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -94,7 +98,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
     
     public void borrarCadrado(JLabel lblCadrado){
-        lblCadrado.setVisible(false);
         panelXogo.remove(lblCadrado);
         panelXogo.updateUI();
     }
@@ -249,10 +252,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         if (tiempo.isRunning()) {
             tiempo.stop();
             caida.stop();
+            xogo.setPausa(false);
         } else {
             tiempo.start();
             caida.start();
             panelXogo.requestFocus();
+            xogo.setPausa(true);
         }
 
         // TODO add your handling code here:
