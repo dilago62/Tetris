@@ -28,6 +28,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private int dificultad;
     private int tiempoCaida;
 
+
     /**
      * Creates new form VentanaPrincipal
      */
@@ -48,7 +49,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         String texto = (horas <= 9 ? "0" : "") + horas + ":" + (minutos <= 9 ? "0" : "") + minutos + ":"
                 + (segundos <= 9 ? "0" : "") + segundos + ":" + (centesimas <= 9 ? "0" : "") + centesimas;
 
-        jLabel3.setText(texto);
+        Tiempo.setText(texto);
     }
 
     public VentanaPrincipal() {
@@ -66,6 +67,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 dificultad = xogo.getNumeroLineas();
                 xogo.moverFichaAbaixo();
                 tiempoCaida = 850-dificultad*200;
+                lblLblnumlinas.setText(xogo.getNumeroLineas() + "");
             }
         };
     
@@ -96,12 +98,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         panelXogo.add(lblCadrado);
         panelXogo.updateUI();
     }
+
     
     public void borrarCadrado(JLabel lblCadrado){
         panelXogo.remove(lblCadrado);
         panelXogo.updateUI();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -113,15 +116,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jFrame1 = new javax.swing.JFrame();
         panelXogo = new javax.swing.JPanel();
-        jToggleButton2 = new javax.swing.JToggleButton();
-        jLabel3 = new javax.swing.JLabel();
+        Pausa = new javax.swing.JToggleButton();
+        PanelLabels = new javax.swing.JPanel();
+        Tiempo = new javax.swing.JLabel();
+        CajaTiempo = new javax.swing.JLabel();
+        lblLblnumlinas = new javax.swing.JLabel();
+        CajaPuntuación = new javax.swing.JLabel();
+        botonesDificultad = new javax.swing.ButtonGroup();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton3 = new javax.swing.JRadioButton();
 
-        jFrame1.setMinimumSize(new java.awt.Dimension(700, 900));
+        jFrame1.setMinimumSize(new java.awt.Dimension(700, 950));
         jFrame1.setResizable(false);
 
+        panelXogo.setBackground(new java.awt.Color(0, 0, 0));
         panelXogo.setMaximumSize(new java.awt.Dimension(320, 640));
         panelXogo.setMinimumSize(new java.awt.Dimension(320, 640));
         panelXogo.setPreferredSize(new java.awt.Dimension(320, 640));
@@ -142,54 +154,66 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGap(0, 640, Short.MAX_VALUE)
         );
 
-
-        jToggleButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/button (2).png"))); // NOI18N
-
-        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
+        Pausa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/button (2).png"))); // NOI18N
+        Pausa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton2ActionPerformed(evt);
+                PausaActionPerformed(evt);
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Source Serif Pro Black", 1, 36)); // NOI18N
-        jLabel3.setText("00:00:00:00");
+        PanelLabels.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Tiempo.setFont(new java.awt.Font("Source Serif Pro Black", 1, 36)); // NOI18N
+        Tiempo.setLabelFor(CajaTiempo);
+        Tiempo.setText("00:00:00:00");
+        PanelLabels.add(Tiempo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, 210, 70));
+
+        CajaTiempo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/scorre (3).png"))); // NOI18N
+        PanelLabels.add(CajaTiempo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 320, 202));
+
+        lblLblnumlinas.setFont(new java.awt.Font("Source Serif Pro Black", 1, 36)); // NOI18N
+        lblLblnumlinas.setText("0");
+        PanelLabels.add(lblLblnumlinas, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 120, 80));
+
+        CajaPuntuación.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/scorre (2).1.png"))); // NOI18N
+        PanelLabels.add(CajaPuntuación, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 320, 187));
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
         jFrame1Layout.setHorizontalGroup(
             jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jFrame1Layout.createSequentialGroup()
-                .addGap(76, 76, 76)
+                .addContainerGap()
                 .addComponent(panelXogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jFrame1Layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27)
+                        .addComponent(PanelLabels, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jFrame1Layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(jLabel3)))
-                .addContainerGap(94, Short.MAX_VALUE))
+                        .addGap(92, 92, 92)
+                        .addComponent(Pausa, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(98, Short.MAX_VALUE))
         );
         jFrame1Layout.setVerticalGroup(
             jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jFrame1Layout.createSequentialGroup()
-                .addComponent(panelXogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 260, Short.MAX_VALUE))
-            .addGroup(jFrame1Layout.createSequentialGroup()
-                .addGap(203, 203, 203)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60)
-                .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jFrame1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(PanelLabels, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Pausa, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jFrame1Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(panelXogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(244, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(700, 900));
         setResizable(false);
 
-
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/button (1).png"))); // NOI18N
-
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -209,9 +233,31 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
-
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/628a738ebc2ec7ad957f4072.png"))); // NOI18N
 
+        botonesDificultad.add(jRadioButton1);
+        jRadioButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/scorre (5).png"))); // NOI18N
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
+
+        botonesDificultad.add(jRadioButton2);
+        jRadioButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/scorre (7).png"))); // NOI18N
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
+
+        botonesDificultad.add(jRadioButton3);
+        jRadioButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/scorre (9).png"))); // NOI18N
+        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -219,15 +265,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(151, 151, 151)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 517, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(96, 96, 96)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(81, 81, 81)
+                        .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(jLabel1)))
-                .addContainerGap(70, Short.MAX_VALUE))
+                        .addGap(121, 121, 121)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jRadioButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(110, 110, 110)
+                        .addComponent(jRadioButton2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(94, 94, 94)
+                        .addComponent(jRadioButton3)))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -239,15 +293,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(69, 69, 69)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(39, 39, 39)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)
+                        .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(518, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
+    private void PausaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PausaActionPerformed
 
         if (tiempo.isRunning()) {
             tiempo.stop();
@@ -262,7 +322,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         // TODO add your handling code here:
 
-    }//GEN-LAST:event_jToggleButton2ActionPerformed
+    }//GEN-LAST:event_PausaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
@@ -282,7 +342,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1KeyPressed
-  
+
     private void panelXogoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_panelXogoKeyPressed
 
         int key = evt.getKeyCode();
@@ -302,6 +362,37 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         // TODO add your handling code here:
     }//GEN-LAST:event_panelXogoKeyPressed
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        jRadioButton1.setIcon(new javax.swing.ImageIcon(getClass()
+                .getResource("/Images/scorre (6).png")));
+        jRadioButton2.setIcon(new javax.swing.ImageIcon(getClass()
+                .getResource("/Images/scorre (7).png")));
+        jRadioButton3.setIcon(new javax.swing.ImageIcon(getClass()
+                .getResource("/Images/scorre (9).png")));
+
+
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        jRadioButton2.setIcon(new javax.swing.ImageIcon(getClass()
+                .getResource("/Images/scorre (8).png")));
+        jRadioButton1.setIcon(new javax.swing.ImageIcon(getClass()
+                .getResource("/Images/scorre (5).png")));
+        jRadioButton3.setIcon(new javax.swing.ImageIcon(getClass()
+                .getResource("/Images/scorre (9).png")));
+        dificultad = 3;
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+        jRadioButton1.setIcon(new javax.swing.ImageIcon(getClass()
+                .getResource("/Images/scorre (5).png")));
+        jRadioButton2.setIcon(new javax.swing.ImageIcon(getClass()
+                .getResource("/Images/scorre (7).png")));
+        jRadioButton3.setIcon(new javax.swing.ImageIcon(getClass()
+                .getResource("/Images/scorre (10).png")));
+        dificultad = 5;
+    }//GEN-LAST:event_jRadioButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -340,12 +431,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel CajaPuntuación;
+    private javax.swing.JLabel CajaTiempo;
+    private javax.swing.JPanel PanelLabels;
+    private javax.swing.JToggleButton Pausa;
+    private javax.swing.JLabel Tiempo;
+    private javax.swing.ButtonGroup botonesDificultad;
     private javax.swing.JButton jButton1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JToggleButton jToggleButton2;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JLabel lblLblnumlinas;
     private javax.swing.JPanel panelXogo;
     // End of variables declaration//GEN-END:variables
 
