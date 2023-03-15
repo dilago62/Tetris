@@ -50,13 +50,13 @@ public abstract class Ficha {
 
     protected void pintarLabels(Xogo xogo1) {
         for (int i = 0; i < getCadrados().size(); i++) {
-            setBorde(BorderFactory.createLineBorder(Color.black));
-            getCadrados().get(i).setLblCadrado(new JLabel());
-            getCadrados().get(i).getLblCadrado().setBorder(getBorde());
-            getCadrados().get(i).getLblCadrado().setBackground(getCadrados().get(i).getCorRecheo());
-            getCadrados().get(i).getLblCadrado().setOpaque(true);
-            getCadrados().get(i).getLblCadrado().setSize(xogo1.getLadoCadrado(), xogo1.getLadoCadrado());
-            getCadrados().get(i).getLblCadrado().setLocation(getCadrados().get(i).getX(), getCadrados().get(i).getY());
+            borde=BorderFactory.createLineBorder(Color.black);
+            cadrados.get(i).setLblCadrado(new JLabel());
+            cadrados.get(i).getLblCadrado().setBorder(borde);
+            cadrados.get(i).getLblCadrado().setBackground(cadrados.get(i).getCorRecheo());
+            cadrados.get(i).getLblCadrado().setOpaque(true);
+            cadrados.get(i).getLblCadrado().setSize(xogo.getLadoCadrado(), xogo.getLadoCadrado());
+            cadrados.get(i).getLblCadrado().setLocation(getCadrados().get(i).getX(), getCadrados().get(i).getY());
         }
     }
     public abstract boolean rotar();
@@ -75,14 +75,6 @@ public abstract class Ficha {
 
     public void setXogo(Xogo xogo) {
         this.xogo = xogo;
-    }
-
-    protected Border getBorde() {
-        return borde;
-    }
-
-    protected void setBorde(Border borde) {
-        this.borde = borde;
     }
 
 }

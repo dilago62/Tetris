@@ -35,6 +35,7 @@ public class Cadrado {
 
     public void setX(int x) {
         this.x = x;
+        lblCadrado.setLocation(x, y);
     }
 
     public int getY() {
@@ -43,6 +44,7 @@ public class Cadrado {
 
     public void setY(int y) {
         this.y = y;
+        lblCadrado.setLocation(x, y);
     }
 
     public Color getCorRecheo() {

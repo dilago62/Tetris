@@ -20,11 +20,9 @@ public class Xogo {
     private int numeroLineas = 0;
     private ArrayList<Cadrado> cadradosChan = new ArrayList();
     private Ficha fichaActual;
-    private Iterator<Cadrado> cadrados;
     private VentanaPrincipal ventana;
 
     public Xogo(VentanaPrincipal ventana) {
-
         this.ventana = ventana;
     }
 
@@ -51,15 +49,15 @@ public class Xogo {
                 setFichaActual(fichaT);
                 break;
         }
-        for (int contador = 0; contador < getFichaActual().getCadrados().size(); contador++) {
-            getVentana().pintarCadrado(getFichaActual().getCadrados().get(contador).getLblCadrado());
+        Iterator <Cadrado> fichaCadrados = fichaActual.getCadrados().iterator();
+        while (fichaCadrados.hasNext()){
+            ventana.pintarCadrado(fichaCadrados.next().getLblCadrado());
         }
-
         return true;
     }
 
     public void moverFichaAbaixo() {
-        if (chocarFichaCoChan()) {
+        if (!pausa && chocarFichaCoChan()) {
             engadirFichaAoChan();
             borrarLinasCompletas();
         } else {
@@ -68,19 +66,21 @@ public class Xogo {
     }
 
     public void moverFichaDereita() {
-        if (validar('d')) {
+        if (!pausa && validar('d')) {
             getFichaActual().moverDereita();
         }
     }
 
     public void moverFichaEsquerda() {
-        if (validar('e')) {
+        if (!pausa && validar('e')) {
             getFichaActual().moverEsquerda();
         }
     }
 
     public void rotarFicha() {
-        getFichaActual().rotar();
+        if(!pausa){
+            getFichaActual().rotar();
+        }
     }
 
     public boolean chocarFichaCoChan() {
@@ -99,16 +99,16 @@ public class Xogo {
     }
 
     public void borrarLinasCompletas() {
-        int cadradosFila = 0;
+        boolean eliminarFila;
         for (int contador = 0; contador < cadradosChan.size(); contador++) {
-            for(int contador2 = 0; contador< cadradosChan.size(); contador2++){
-                if(cadradosChan.get(contador).getY()==cadradosChan.get(contador2).getY()){
-                    cadradosFila++;
-                    if (cadradosFila==12){
-                        borrarLina(cadradosChan.get(contador).getY());
-                        cadradosFila = 0;
-                        contador2=0;
-                    }
+            eliminarFila = true;
+            for (int posicion = 0; posicion < 10 && eliminarFila; posicion++){
+                if(!cadradoEnXY(posicion*ladoCadrado, cadradosChan.get(contador).getY())){
+                    eliminarFila = false;
+                }
+                else if (posicion == 9){
+                    borrarLina(cadradosChan.get(contador).getY());
+                    numeroLineas++;
                 }
             }
         }
@@ -157,8 +157,10 @@ public class Xogo {
 
     private void baixarCadrados(int y) {
         for (int contador = 0; contador < cadradosChan.size(); contador++) {
-            if (cadradosChan.get(contador).getY() > y) {
-                cadradosChan.get(contador).setY(-ladoCadrado);
+            if (cadradosChan.get(contador).getY() < y) {
+                ventana.borrarCadrado(cadradosChan.get(contador).getLblCadrado());
+                cadradosChan.get(contador).setY(cadradosChan.get(contador).getY()+ladoCadrado);
+                ventana.pintarCadrado(cadradosChan.get(contador).getLblCadrado());
             }
         }
     }
