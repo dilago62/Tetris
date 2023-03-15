@@ -104,7 +104,7 @@ public class Xogo {
             for(int contador2 = 0; contador< cadradosChan.size(); contador2++){
                 if(cadradosChan.get(contador).getY()==cadradosChan.get(contador2).getY()){
                     cadradosFila++;
-                    if (cadradosFila==10){
+                    if (cadradosFila==12){
                         borrarLina(cadradosChan.get(contador).getY());
                         cadradosFila = 0;
                         contador2=0;
