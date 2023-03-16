@@ -26,13 +26,11 @@ public class Xogo {
         this.ventana = ventana;
     }
 
-    public boolean xenerarNovaFicha() {
-
+    public void xenerarNovaFicha() {
+        boolean perder = false;
         int pieza = (int) (Math.random() * 4);
         switch (pieza) {
-
             case 0:
-            default:
                 FichaCadrada fichaC = new FichaCadrada(this);
                 setFichaActual(fichaC);
                 break;
@@ -50,14 +48,24 @@ public class Xogo {
                 break;
         }
         Iterator <Cadrado> fichaCadrados = fichaActual.getCadrados().iterator();
-        while (fichaCadrados.hasNext()){
-            ventana.pintarCadrado(fichaCadrados.next().getLblCadrado());
+        while (fichaCadrados.hasNext() && !perder){
+            Cadrado temporal = fichaCadrados.next();
+            perder = cadradoEnXY(temporal.getX(), temporal.getY());
         }
-        return true;
+        if(perder){
+            ventana.mostrarFinDOXogo();
+        }
+        else{
+            fichaCadrados = fichaActual.getCadrados().iterator();
+            while (fichaCadrados.hasNext()){
+                ventana.pintarCadrado(fichaCadrados.next().getLblCadrado());
+            }
+        }
+        
     }
 
     public void moverFichaAbaixo() {
-        if (!pausa && chocarFichaCoChan()) {
+        if (pausa && chocarFichaCoChan()) {
             engadirFichaAoChan();
             borrarLinasCompletas();
         } else {
@@ -66,19 +74,19 @@ public class Xogo {
     }
 
     public void moverFichaDereita() {
-        if (!pausa && validar('d')) {
+        if (pausa && validar('d')) {
             getFichaActual().moverDereita();
         }
     }
 
     public void moverFichaEsquerda() {
-        if (!pausa && validar('e')) {
+        if (pausa && validar('e')) {
             getFichaActual().moverEsquerda();
         }
     }
 
     public void rotarFicha() {
-        if(!pausa){
+        if(pausa){
             getFichaActual().rotar();
         }
     }
