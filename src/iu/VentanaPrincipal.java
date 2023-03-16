@@ -18,15 +18,14 @@ import javax.swing.Timer;
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
 
-    private Xogo xogo = new Xogo(this);
+    private Xogo xogo;
     private Timer tiempo;
     private int centesimas = 0;
     private int segundos = 0;
     private int minutos = 0;
     private int horas = 0;
-    private Timer caida;
-    private int dificultad;
-    private int tiempoCaida;
+    private int dificultad = 1;
+    private int caidaFicha;
 
 
     /**
@@ -55,29 +54,30 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public VentanaPrincipal() {
 
         initComponents();
-        tiempoCaida = 850-dificultad*200;
-        xogo.xenerarNovaFicha();
-        panelXogo.setFocusable(true);
-        tiempo = new Timer(10, acciones);
-        caida = new Timer(tiempoCaida, caidaFicha);
+        
     }
     
-    private ActionListener caidaFicha = new ActionListener() {
-            public void actionPerformed(ActionEvent e){
-                dificultad = xogo.getNumeroLineas();
-                xogo.moverFichaAbaixo();
-                tiempoCaida = 850-dificultad*200;
-                lblLblnumlinas.setText(xogo.getNumeroLineas() + "");
-            }
-        };
+    public void mostrarNumeroLinas() {
+        String valorAnterior = lblLblnumlinas.getText();
+        lblLblnumlinas.setText(xogo.getNumeroLineas() + "");
+        if(!valorAnterior.equals(lblLblnumlinas.getText()) && xogo.getNumeroLineas()%5==0){
+            dificultad++;
+        }
+    }
     
     private ActionListener acciones = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             centesimas++;
+            caidaFicha++;
             if (centesimas == 100) {
                 segundos++;
                 centesimas = 0;
+            }
+            if(caidaFicha == 85 - 5*dificultad){
+                xogo.moverFichaAbaixo();
+                mostrarNumeroLinas();
+                caidaFicha=0;
             }
             if (segundos == 60) {
                 minutos++;
@@ -105,6 +105,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         panelXogo.updateUI();
     }
 
+    public void mostrarFinDOXogo(){
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -311,11 +314,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         if (tiempo.isRunning()) {
             tiempo.stop();
-            caida.stop();
             xogo.setPausa(false);
         } else {
             tiempo.start();
-            caida.start();
             panelXogo.requestFocus();
             xogo.setPausa(true);
         }
@@ -326,13 +327,27 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        jFrame1.setVisible(true);
+        iniciarPartida();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void iniciarPartida() {
+        panelXogo.removeAll();
+        panelXogo.updateUI();
+        jFrame1.setVisible(true);
+        xogo = new Xogo(this);
+        xogo.xenerarNovaFicha();
+        xogo.setPausa(true);
+        panelXogo.setFocusable(true);
+        panelXogo.requestFocus();
+        tiempo = new Timer(10, acciones);
+        centesimas = 0;
+        segundos = 0;
+        minutos = 0;
+        horas = 0;
         /*Imagen Imagen = new Imagen();
         panelXogo.add(Imagen);*/
         tiempo.start();
-        caida.start();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }
 
     private void jLabel2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jLabel2KeyPressed
         // TODO add your handling code here:
@@ -370,8 +385,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .getResource("/Images/scorre (7).png")));
         jRadioButton3.setIcon(new javax.swing.ImageIcon(getClass()
                 .getResource("/Images/scorre (9).png")));
-
-
+        dificultad=1;
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
