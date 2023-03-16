@@ -73,10 +73,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             if (centesimas == 100) {
                 segundos++;
                 centesimas = 0;
+                mostrarNumeroLinas();
             }
             if(caidaFicha == 85 - 5*dificultad){
                 xogo.moverFichaAbaixo();
-                mostrarNumeroLinas();
                 caidaFicha=0;
             }
             if (segundos == 60) {
@@ -107,14 +107,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     
     public void mostrarFinDoXogo(){
         jFrame2.setVisible(true);
-        tiempo.stop();
-        caida.stop();
-        
+        tiempo.stop(); 
     }
 
-    public void mostrarFinDOXogo(){
-        
-    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -366,9 +361,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         iniciarPartida();
     }//GEN-LAST:event_jButton1ActionPerformed
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        jFrame1.setVisible(true);
 
     private void iniciarPartida() {
         panelXogo.removeAll();
@@ -450,23 +442,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         
      
     }//GEN-LAST:event_jRadioButton3ActionPerformed
-
-    private void PausaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PausaActionPerformed
-
-        if (tiempo.isRunning()) {
-            tiempo.stop();
-            caida.stop();
-            xogo.setPausa(false);
-        } else {
-            tiempo.start();
-            caida.start();
-            panelXogo.requestFocus();
-            xogo.setPausa(true);
-        }
-       
-
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PausaActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
