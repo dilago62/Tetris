@@ -53,7 +53,7 @@ public class Xogo {
             perder = cadradoEnXY(temporal.getX(), temporal.getY());
         }
         if(perder){
-            ventana.mostrarFinDOXogo();
+            ventana.mostrarFinDoXogo();
         }
         else{
             fichaCadrados = fichaActual.getCadrados().iterator();

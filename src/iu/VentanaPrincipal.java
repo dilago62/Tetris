@@ -445,9 +445,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
-        xogo=null;
-
-
+        this.dispose();
+        jFrame1.dispose();
+        jFrame2.dispose();
+     
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
