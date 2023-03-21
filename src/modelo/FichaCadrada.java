@@ -7,7 +7,7 @@ package modelo;
 import java.awt.Color;
 
 /**
- *
+ *prueba
  * @author a22davidil
  */
 public class FichaCadrada extends Ficha {
