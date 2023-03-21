@@ -45,10 +45,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     private void Tiempo() {
-        String texto = (horas <= 9 ? "0" : "") + horas + ":" + (minutos <= 9 ? "0" : "") + minutos + ":"
+        String texto = (minutos <= 9 ? "0" : "") + minutos + ":"
                 + (segundos <= 9 ? "0" : "") + segundos + ":" + (centesimas <= 9 ? "0" : "") + centesimas;
 
-        Tiempo.setText(texto);
+        temporizador.setText(texto);
     }
 
     public VentanaPrincipal() {
@@ -87,9 +87,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 horas++;
                 minutos = 0;
             }
-            if (horas == 24) {
-                horas = 0;
-            }
+           
             Tiempo();
         }
     };
@@ -106,7 +104,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
     
     public void mostrarFinDoXogo(){
-        jFrame2.setVisible(true);
+        gameOver.setVisible(true);
+        exit.setVisible(true);
+        panelXogo.setVisible(false);
+        cajaPuntuación.setVisible(false);
+        cajaTiempo.setVisible(false);
+        lblLblnumlinas.setVisible(false);
+        temporizador.setVisible(false);
+        pausa.setVisible(false);
         tiempo.stop(); 
     }
 
@@ -120,28 +125,47 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jFrame1 = new javax.swing.JFrame();
+        panelPrincipal = new javax.swing.JPanel();
+        exit = new javax.swing.JButton();
+        gameOver = new javax.swing.JLabel();
         panelXogo = new javax.swing.JPanel();
-        PanelLabels = new javax.swing.JPanel();
-        Tiempo = new javax.swing.JLabel();
-        CajaTiempo = new javax.swing.JLabel();
+        labelFondo = new javax.swing.JLabel();
+        panelLabels = new javax.swing.JPanel();
+        temporizador = new javax.swing.JLabel();
+        cajaTiempo = new javax.swing.JLabel();
         lblLblnumlinas = new javax.swing.JLabel();
-        CajaPuntuación = new javax.swing.JLabel();
-        Pausa = new javax.swing.JToggleButton();
+        cajaPuntuación = new javax.swing.JLabel();
+        pausa = new javax.swing.JToggleButton();
         botonesDificultad = new javax.swing.ButtonGroup();
-        jFrame2 = new javax.swing.JFrame();
-        jPanel1 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        iniciar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
+        botonFacil = new javax.swing.JRadioButton();
+        botonMedio = new javax.swing.JRadioButton();
+        botonDificil = new javax.swing.JRadioButton();
 
+        jFrame1.setBackground(new java.awt.Color(153, 153, 153));
         jFrame1.setLocation(new java.awt.Point(250, 0));
         jFrame1.setMinimumSize(new java.awt.Dimension(700, 950));
         jFrame1.setResizable(false);
+        jFrame1.getContentPane().setLayout(null);
+
+        panelPrincipal.setBackground(new java.awt.Color(84, 81, 81));
+        panelPrincipal.setLayout(null);
+
+        exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/es.png"))); // NOI18N
+        exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitActionPerformed(evt);
+            }
+        });
+        panelPrincipal.add(exit);
+        exit.setBounds(230, 390, 220, 100);
+
+        gameOver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Diseño sin título.png"))); // NOI18N
+        panelPrincipal.add(gameOver);
+        gameOver.setBounds(170, 150, 350, 430);
+        gameOver.getAccessibleContext().setAccessibleParent(panelPrincipal);
 
         panelXogo.setBackground(new java.awt.Color(0, 0, 0));
         panelXogo.setMaximumSize(new java.awt.Dimension(320, 640));
@@ -153,109 +177,81 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        labelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/tetris4_transparente.png"))); // NOI18N
+        labelFondo.setText("jLabel4");
+        labelFondo.setMaximumSize(new java.awt.Dimension(320, 640));
+        labelFondo.setMinimumSize(new java.awt.Dimension(320, 640));
+        labelFondo.setPreferredSize(new java.awt.Dimension(320, 640));
+
         javax.swing.GroupLayout panelXogoLayout = new javax.swing.GroupLayout(panelXogo);
         panelXogo.setLayout(panelXogoLayout);
         panelXogoLayout.setHorizontalGroup(
             panelXogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 320, Short.MAX_VALUE)
+            .addGroup(panelXogoLayout.createSequentialGroup()
+                .addComponent(labelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         panelXogoLayout.setVerticalGroup(
             panelXogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 640, Short.MAX_VALUE)
+            .addGroup(panelXogoLayout.createSequentialGroup()
+                .addComponent(labelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        PanelLabels.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        panelPrincipal.add(panelXogo);
+        panelXogo.setBounds(6, 16, 320, 640);
 
-        Tiempo.setFont(new java.awt.Font("Source Serif Pro Black", 1, 36)); // NOI18N
-        Tiempo.setLabelFor(CajaTiempo);
-        Tiempo.setText("00:00:00:00");
-        PanelLabels.add(Tiempo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, 210, 70));
+        panelLabels.setBackground(new java.awt.Color(84, 81, 81));
+        panelLabels.setLayout(null);
 
-        CajaTiempo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/scorre (3).png"))); // NOI18N
-        PanelLabels.add(CajaTiempo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 320, 202));
+        temporizador.setFont(new java.awt.Font("Source Serif Pro Black", 1, 36)); // NOI18N
+        temporizador.setLabelFor(cajaTiempo);
+        temporizador.setText("00:00:00:00");
+        panelLabels.add(temporizador);
+        temporizador.setBounds(200, 340, 210, 70);
+
+        cajaTiempo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/scorre (3).png"))); // NOI18N
+        panelLabels.add(cajaTiempo);
+        cajaTiempo.setBounds(150, 250, 320, 202);
 
         lblLblnumlinas.setFont(new java.awt.Font("Source Serif Pro Black", 1, 36)); // NOI18N
         lblLblnumlinas.setText("0");
-        PanelLabels.add(lblLblnumlinas, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 120, 80));
+        panelLabels.add(lblLblnumlinas);
+        lblLblnumlinas.setBounds(290, 80, 120, 80);
 
-        CajaPuntuación.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/scorre (2).1.png"))); // NOI18N
-        PanelLabels.add(CajaPuntuación, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 320, 187));
+        cajaPuntuación.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/scorre (2).1.png"))); // NOI18N
+        panelLabels.add(cajaPuntuación);
+        cajaPuntuación.setBounds(150, 10, 320, 187);
 
-        Pausa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/button (2).png"))); // NOI18N
-        Pausa.addActionListener(new java.awt.event.ActionListener() {
+        pausa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/button (2).png"))); // NOI18N
+        pausa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PausaActionPerformed(evt);
+                pausaActionPerformed(evt);
             }
         });
-        PanelLabels.add(Pausa, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 480, 194, 70));
-        Pausa.getAccessibleContext().setAccessibleParent(PanelLabels);
+        panelLabels.add(pausa);
+        pausa.setBounds(220, 500, 194, 60);
+        pausa.getAccessibleContext().setAccessibleParent(panelLabels);
 
-        javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
-        jFrame1.getContentPane().setLayout(jFrame1Layout);
-        jFrame1Layout.setHorizontalGroup(
-            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jFrame1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelXogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(PanelLabels, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(98, Short.MAX_VALUE))
-        );
-        jFrame1Layout.setVerticalGroup(
-            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jFrame1Layout.createSequentialGroup()
-                .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jFrame1Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(panelXogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jFrame1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(PanelLabels, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(443, Short.MAX_VALUE))
-        );
+        panelPrincipal.add(panelLabels);
+        panelLabels.setBounds(237, 6, 910, 810);
 
-        jFrame2.setLocation(new java.awt.Point(350, 150));
-        jFrame2.setMaximumSize(new java.awt.Dimension(360, 422));
-        jFrame2.setMinimumSize(new java.awt.Dimension(360, 422));
-        jFrame2.setPreferredSize(new java.awt.Dimension(360, 422));
-
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/es.png"))); // NOI18N
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 250, 220, 110));
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Diseño sin título.png"))); // NOI18N
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, -1));
-
-        javax.swing.GroupLayout jFrame2Layout = new javax.swing.GroupLayout(jFrame2.getContentPane());
-        jFrame2.getContentPane().setLayout(jFrame2Layout);
-        jFrame2Layout.setHorizontalGroup(
-            jFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        jFrame2Layout.setVerticalGroup(
-            jFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        jFrame1.getContentPane().add(panelPrincipal);
+        panelPrincipal.setBounds(-5, -2, 1110, 1430);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(700, 900));
         setResizable(false);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/button (1).png"))); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        iniciar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/button (1).png"))); // NOI18N
+        iniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                iniciarActionPerformed(evt);
             }
         });
-        jButton1.addKeyListener(new java.awt.event.KeyAdapter() {
+        iniciar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jButton1KeyPressed(evt);
+                iniciarKeyPressed(evt);
             }
         });
 
@@ -269,27 +265,27 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/628a738ebc2ec7ad957f4072.png"))); // NOI18N
 
-        botonesDificultad.add(jRadioButton1);
-        jRadioButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/scorre (5).png"))); // NOI18N
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        botonesDificultad.add(botonFacil);
+        botonFacil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/scorre (5).png"))); // NOI18N
+        botonFacil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                botonFacilActionPerformed(evt);
             }
         });
 
-        botonesDificultad.add(jRadioButton2);
-        jRadioButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/scorre (7).png"))); // NOI18N
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+        botonesDificultad.add(botonMedio);
+        botonMedio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/scorre (7).png"))); // NOI18N
+        botonMedio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
+                botonMedioActionPerformed(evt);
             }
         });
 
-        botonesDificultad.add(jRadioButton3);
-        jRadioButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/scorre (9).png"))); // NOI18N
-        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+        botonesDificultad.add(botonDificil);
+        botonDificil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/scorre (9).png"))); // NOI18N
+        botonDificil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton3ActionPerformed(evt);
+                botonDificilActionPerformed(evt);
             }
         });
 
@@ -307,14 +303,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(121, 121, 121)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jRadioButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(botonFacil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(iniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(110, 110, 110)
-                        .addComponent(jRadioButton2))
+                        .addComponent(botonMedio))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(94, 94, 94)
-                        .addComponent(jRadioButton3)))
+                        .addComponent(botonDificil)))
                 .addContainerGap(112, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -328,13 +324,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                         .addGap(32, 32, 32)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(39, 39, 39)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(iniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(36, 36, 36)
-                        .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(botonFacil, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(botonMedio, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jRadioButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(botonDificil, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(518, Short.MAX_VALUE))
         );
 
@@ -342,33 +338,35 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 
-    private void PausaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PausaActionPerformed
+    private void pausaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pausaActionPerformed
 
         if (tiempo.isRunning()) {
             tiempo.stop();
-            xogo.setPausa(false);
+            xogo.setPausa(true);
         } else {
             tiempo.start();
             panelXogo.requestFocus();
-            xogo.setPausa(true);
+            xogo.setPausa(false);
         }
 
         // TODO add your handling code here:
 
-    }//GEN-LAST:event_PausaActionPerformed
+    }//GEN-LAST:event_pausaActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void iniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarActionPerformed
 
         iniciarPartida();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_iniciarActionPerformed
 
     private void iniciarPartida() {
         panelXogo.removeAll();
         panelXogo.updateUI();
+        gameOver.setVisible(false);
+        exit.setVisible(false);
         jFrame1.setVisible(true);
         xogo = new Xogo(this);
         xogo.xenerarNovaFicha();
-        xogo.setPausa(true);
+        xogo.setPausa(false);
         panelXogo.setFocusable(true);
         panelXogo.requestFocus();
         tiempo = new Timer(10, acciones);
@@ -376,8 +374,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         segundos = 0;
         minutos = 0;
         horas = 0;
-        /*Imagen Imagen = new Imagen();
-        panelXogo.add(Imagen);*/
+        Imagen Imagen = new Imagen();
+        panelXogo.add(Imagen);
         tiempo.start();
     }
 
@@ -385,10 +383,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabel2KeyPressed
 
-    private void jButton1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyPressed
+    private void iniciarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_iniciarKeyPressed
 
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1KeyPressed
+    }//GEN-LAST:event_iniciarKeyPressed
 
     private void panelXogoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_panelXogoKeyPressed
 
@@ -410,47 +408,45 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_panelXogoKeyPressed
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        jRadioButton1.setIcon(new javax.swing.ImageIcon(getClass()
+    private void botonFacilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonFacilActionPerformed
+        botonFacil.setIcon(new javax.swing.ImageIcon(getClass()
                 .getResource("/Images/scorre (6).png")));
-        jRadioButton2.setIcon(new javax.swing.ImageIcon(getClass()
+        botonMedio.setIcon(new javax.swing.ImageIcon(getClass()
                 .getResource("/Images/scorre (7).png")));
-        jRadioButton3.setIcon(new javax.swing.ImageIcon(getClass()
+        botonDificil.setIcon(new javax.swing.ImageIcon(getClass()
                 .getResource("/Images/scorre (9).png")));
         dificultad=1;
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    }//GEN-LAST:event_botonFacilActionPerformed
 
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
-        jRadioButton2.setIcon(new javax.swing.ImageIcon(getClass()
+    private void botonMedioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMedioActionPerformed
+        botonMedio.setIcon(new javax.swing.ImageIcon(getClass()
                 .getResource("/Images/scorre (8).png")));
-        jRadioButton1.setIcon(new javax.swing.ImageIcon(getClass()
+        botonFacil.setIcon(new javax.swing.ImageIcon(getClass()
                 .getResource("/Images/scorre (5).png")));
-        jRadioButton3.setIcon(new javax.swing.ImageIcon(getClass()
+        botonDificil.setIcon(new javax.swing.ImageIcon(getClass()
                 .getResource("/Images/scorre (9).png")));
         
       
         
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
+    }//GEN-LAST:event_botonMedioActionPerformed
 
-    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
-        jRadioButton1.setIcon(new javax.swing.ImageIcon(getClass()
+    private void botonDificilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonDificilActionPerformed
+        botonFacil.setIcon(new javax.swing.ImageIcon(getClass()
                 .getResource("/Images/scorre (5).png")));
-        jRadioButton2.setIcon(new javax.swing.ImageIcon(getClass()
+        botonMedio.setIcon(new javax.swing.ImageIcon(getClass()
                 .getResource("/Images/scorre (7).png")));
-        jRadioButton3.setIcon(new javax.swing.ImageIcon(getClass()
+        botonDificil.setIcon(new javax.swing.ImageIcon(getClass()
                 .getResource("/Images/scorre (10).png")));
         
      
-    }//GEN-LAST:event_jRadioButton3ActionPerformed
+    }//GEN-LAST:event_botonDificilActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
 
         this.dispose();
         jFrame1.dispose();
-        jFrame2.dispose();
-     
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_exitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -489,25 +485,25 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel CajaPuntuación;
-    private javax.swing.JLabel CajaTiempo;
-    private javax.swing.JPanel PanelLabels;
-    private javax.swing.JToggleButton Pausa;
-    private javax.swing.JLabel Tiempo;
+    private javax.swing.JRadioButton botonDificil;
+    private javax.swing.JRadioButton botonFacil;
+    private javax.swing.JRadioButton botonMedio;
     private javax.swing.ButtonGroup botonesDificultad;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel cajaPuntuación;
+    private javax.swing.JLabel cajaTiempo;
+    private javax.swing.JButton exit;
+    private javax.swing.JLabel gameOver;
+    private javax.swing.JButton iniciar;
     private javax.swing.JFrame jFrame1;
-    private javax.swing.JFrame jFrame2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JLabel labelFondo;
     private javax.swing.JLabel lblLblnumlinas;
+    private javax.swing.JPanel panelLabels;
+    private javax.swing.JPanel panelPrincipal;
     private javax.swing.JPanel panelXogo;
+    private javax.swing.JToggleButton pausa;
+    private javax.swing.JLabel temporizador;
     // End of variables declaration//GEN-END:variables
 
     public Xogo getXogo() {
