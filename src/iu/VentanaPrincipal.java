@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import modelo.Xogo;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.Iterator;
 import javax.swing.Timer;
 
 /**
@@ -24,9 +26,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private int segundos = 0;
     private int minutos = 0;
     private int horas = 0;
-    private int dificultad = 1;
+    private int dificultad = 3;
     private int caidaFicha;
-
+    private int aumento = 2;
+    private ArrayList<Integer> nivelesAlcanzados = new ArrayList();
 
     /**
      * Creates new form VentanaPrincipal
@@ -44,7 +47,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }
 
-    private void Tiempo() {
+    private void tiempo() {
         String texto = (horas <= 9 ? "0" : "") + horas + ":" + (minutos <= 9 ? "0" : "") + minutos + ":"
                 + (segundos <= 9 ? "0" : "") + segundos + ":" + (centesimas <= 9 ? "0" : "") + centesimas;
 
@@ -54,30 +57,46 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public VentanaPrincipal() {
 
         initComponents();
-        
+        jRadioButton2.setSelected(true);
+        declararImagenes();
     }
-    
+
+    private void declararImagenes() {
+        jRadioButton1.setSelectedIcon(new javax.swing.ImageIcon(getClass()
+                .getResource("/Images/facil_verde.png")));
+        jRadioButton1.setIcon(new javax.swing.ImageIcon(getClass()
+                .getResource("/Images/facil_negro.png")));
+        jRadioButton2.setSelectedIcon(new javax.swing.ImageIcon(getClass()
+                .getResource("/Images/medio_amarillo.png")));
+        jRadioButton2.setIcon(new javax.swing.ImageIcon(getClass()
+                .getResource("/Images/medio_negro.png")));
+        jRadioButton3.setSelectedIcon(new javax.swing.ImageIcon(getClass()
+                .getResource("/Images/dificil_rojo.png")));
+        jRadioButton3.setIcon(new javax.swing.ImageIcon(getClass()
+                .getResource("/Images/dificil_negro.png")));
+    }
+
     public void mostrarNumeroLinas() {
-        String valorAnterior = lblLblnumlinas.getText();
         lblLblnumlinas.setText(xogo.getNumeroLineas() + "");
-        if(!valorAnterior.equals(lblLblnumlinas.getText()) && xogo.getNumeroLineas()%5==0){
-            dificultad++;
-        }
     }
-    
+
     private ActionListener acciones = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             centesimas++;
             caidaFicha++;
+            mostrarNumeroLinas();
             if (centesimas == 100) {
                 segundos++;
                 centesimas = 0;
-                mostrarNumeroLinas();
             }
-            if(caidaFicha == 85 - 5*dificultad){
+            if (comprobarCaida()) {
                 xogo.moverFichaAbaixo();
-                caidaFicha=0;
+                caidaFicha = 0;
+                aumentarVelocidad();
+            }
+            if (segundos == 30 && centesimas == 0) {
+                xogo.engadirLineas();
             }
             if (segundos == 60) {
                 minutos++;
@@ -90,24 +109,58 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             if (horas == 24) {
                 horas = 0;
             }
-            Tiempo();
+            tiempo();
         }
     };
+
+    private boolean comprobarCaida() {
+        return caidaFicha == 85 - 5 * dificultad;
+    }
+
+    private void aumentarVelocidad() {
+        if (!nivelAlcanzado(xogo.getNumeroLineas())) {
+            nuevosNivelesAlcanzados(xogo.getNumeroLineas());
+        }
+    }
+    
+    private void nuevosNivelesAlcanzados(int nivel){
+        while(nivel>0 && dificultad<15){
+            if (nivel % 5 == 0 && !nivelesAlcanzados.contains(nivel)) {
+                dificultad += aumento;
+            }
+            if(!nivelesAlcanzados.contains(nivel)){
+                nivelesAlcanzados.add(nivel);
+            }
+            nivel--;
+        }
+        if(dificultad>15){
+            dificultad=15;
+        }
+    }
+
+    private boolean nivelAlcanzado(int nivel) {
+        Iterator<Integer> niveles = nivelesAlcanzados.iterator();
+        while (niveles.hasNext()) {
+            if (niveles.next() == nivel) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public void pintarCadrado(JLabel lblCadrado) {
         panelXogo.add(lblCadrado);
         panelXogo.updateUI();
     }
 
-    
-    public void borrarCadrado(JLabel lblCadrado){
+    public void borrarCadrado(JLabel lblCadrado) {
         panelXogo.remove(lblCadrado);
         panelXogo.updateUI();
     }
-    
-    public void mostrarFinDoXogo(){
+
+    public void mostrarFinDoXogo() {
         jFrame2.setVisible(true);
-        tiempo.stop(); 
+        tiempo.stop();
     }
 
     /**
@@ -156,12 +209,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         javax.swing.GroupLayout panelXogoLayout = new javax.swing.GroupLayout(panelXogo);
         panelXogo.setLayout(panelXogoLayout);
         panelXogoLayout.setHorizontalGroup(
-            panelXogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 320, Short.MAX_VALUE)
+                panelXogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 320, Short.MAX_VALUE)
         );
         panelXogoLayout.setVerticalGroup(
-            panelXogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 640, Short.MAX_VALUE)
+                panelXogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 640, Short.MAX_VALUE)
         );
 
         PanelLabels.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -193,25 +246,25 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
         jFrame1Layout.setHorizontalGroup(
-            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jFrame1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelXogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(PanelLabels, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(98, Short.MAX_VALUE))
+                jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jFrame1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(panelXogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(31, 31, 31)
+                                .addComponent(PanelLabels, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(98, Short.MAX_VALUE))
         );
         jFrame1Layout.setVerticalGroup(
-            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jFrame1Layout.createSequentialGroup()
-                .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jFrame1Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(panelXogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jFrame1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(PanelLabels, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(443, Short.MAX_VALUE))
+                jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jFrame1Layout.createSequentialGroup()
+                                .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jFrame1Layout.createSequentialGroup()
+                                                .addGap(16, 16, 16)
+                                                .addComponent(panelXogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jFrame1Layout.createSequentialGroup()
+                                                .addContainerGap()
+                                                .addComponent(PanelLabels, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(443, Short.MAX_VALUE))
         );
 
         jFrame2.setLocation(new java.awt.Point(350, 150));
@@ -235,12 +288,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         javax.swing.GroupLayout jFrame2Layout = new javax.swing.GroupLayout(jFrame2.getContentPane());
         jFrame2.getContentPane().setLayout(jFrame2Layout);
         jFrame2Layout.setHorizontalGroup(
-            jFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                jFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jFrame2Layout.setVerticalGroup(
-            jFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                jFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -296,65 +349,63 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(151, 151, 151)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(81, 81, 81)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(121, 121, 121)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jRadioButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
-                        .addComponent(jRadioButton2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(94, 94, 94)
-                        .addComponent(jRadioButton3)))
-                .addContainerGap(112, Short.MAX_VALUE))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(151, 151, 151)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(81, 81, 81)
+                                                .addComponent(jLabel1))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(121, 121, 121)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                        .addComponent(jRadioButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(110, 110, 110)
+                                                .addComponent(jRadioButton2))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(94, 94, 94)
+                                                .addComponent(jRadioButton3)))
+                                .addContainerGap(112, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 526, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36)
-                        .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(518, Short.MAX_VALUE))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addContainerGap()
+                                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 526, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(32, 32, 32)
+                                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(39, 39, 39)
+                                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(36, 36, 36)
+                                                .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jRadioButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(518, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
     private void PausaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PausaActionPerformed
 
         if (tiempo.isRunning()) {
             tiempo.stop();
-            xogo.setPausa(false);
+            xogo.setPausa(true);
         } else {
             tiempo.start();
             panelXogo.requestFocus();
-            xogo.setPausa(true);
+            xogo.setPausa(false);
         }
 
         // TODO add your handling code here:
-
     }//GEN-LAST:event_PausaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -368,7 +419,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jFrame1.setVisible(true);
         xogo = new Xogo(this);
         xogo.xenerarNovaFicha();
-        xogo.setPausa(true);
+        xogo.setPausa(false);
         panelXogo.setFocusable(true);
         panelXogo.requestFocus();
         tiempo = new Timer(10, acciones);
@@ -379,6 +430,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         /*Imagen Imagen = new Imagen();
         panelXogo.add(Imagen);*/
         tiempo.start();
+        nivelesAlcanzados.add(0);
     }
 
     private void jLabel2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jLabel2KeyPressed
@@ -411,42 +463,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_panelXogoKeyPressed
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        jRadioButton1.setIcon(new javax.swing.ImageIcon(getClass()
-                .getResource("/Images/scorre (6).png")));
-        jRadioButton2.setIcon(new javax.swing.ImageIcon(getClass()
-                .getResource("/Images/scorre (7).png")));
-        jRadioButton3.setIcon(new javax.swing.ImageIcon(getClass()
-                .getResource("/Images/scorre (9).png")));
-        dificultad=1;
+        dificultad = 1;
+        aumento = 1;
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
-        jRadioButton2.setIcon(new javax.swing.ImageIcon(getClass()
-                .getResource("/Images/scorre (8).png")));
-        jRadioButton1.setIcon(new javax.swing.ImageIcon(getClass()
-                .getResource("/Images/scorre (5).png")));
-        jRadioButton3.setIcon(new javax.swing.ImageIcon(getClass()
-                .getResource("/Images/scorre (9).png")));
-        
-      
-        
+        dificultad = 3;
+        aumento = 2;
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
-        jRadioButton1.setIcon(new javax.swing.ImageIcon(getClass()
-                .getResource("/Images/scorre (5).png")));
-        jRadioButton2.setIcon(new javax.swing.ImageIcon(getClass()
-                .getResource("/Images/scorre (7).png")));
-        jRadioButton3.setIcon(new javax.swing.ImageIcon(getClass()
-                .getResource("/Images/scorre (10).png")));
-        
-     
+        dificultad = 5;
+        aumento = 3;
     }//GEN-LAST:event_jRadioButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
-        xogo=null;
-
+        xogo = null;
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed

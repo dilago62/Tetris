@@ -25,10 +25,6 @@ public class Cadrado {
         this.corRecheo = corRecheo;
     }
 
-    public String getCoordenadas() {
-        return getX() + " " + getY();
-    }
-
     public int getX() {
         return x;
     }
@@ -61,5 +57,9 @@ public class Cadrado {
 
     public void setLblCadrado(JLabel lblCadrado) {
         this.lblCadrado = lblCadrado;
+    }
+
+    public String getCoordenadas() {
+        return getX() + " " + getY();
     }
 }

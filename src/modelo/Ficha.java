@@ -24,6 +24,22 @@ public abstract class Ficha {
         this.xogo = xogo;
     }
 
+    public ArrayList<Cadrado> getCadrados() {
+        return cadrados;
+    }
+
+    public void setCadrados(ArrayList<Cadrado> cadrados) {
+        this.cadrados = cadrados;
+    }
+
+    public Xogo getXogo() {
+        return xogo;
+    }
+
+    public void setXogo(Xogo xogo) {
+        this.xogo = xogo;
+    }
+
     public boolean moverDereita() {
         for (int contador = 0; contador < getCadrados().size(); contador++) {
             getCadrados().get(contador).setX(getCadrados().get(contador).getX() + getXogo().getLadoCadrado());
@@ -48,9 +64,9 @@ public abstract class Ficha {
         return true;
     }
 
-    protected void pintarLabels(Xogo xogo1) {
+    protected void pintarLabels() {
         for (int i = 0; i < getCadrados().size(); i++) {
-            borde=BorderFactory.createLineBorder(Color.black);
+            borde = BorderFactory.createLineBorder(Color.black);
             cadrados.get(i).setLblCadrado(new JLabel());
             cadrados.get(i).getLblCadrado().setBorder(borde);
             cadrados.get(i).getLblCadrado().setBackground(cadrados.get(i).getCorRecheo());
@@ -59,22 +75,7 @@ public abstract class Ficha {
             cadrados.get(i).getLblCadrado().setLocation(getCadrados().get(i).getX(), getCadrados().get(i).getY());
         }
     }
+
     public abstract boolean rotar();
-
-    public ArrayList<Cadrado> getCadrados() {
-        return cadrados;
-    }
-
-    public void setCadrados(ArrayList<Cadrado> cadrados) {
-        this.cadrados = cadrados;
-    }
-
-    public Xogo getXogo() {
-        return xogo;
-    }
-
-    public void setXogo(Xogo xogo) {
-        this.xogo = xogo;
-    }
 
 }
