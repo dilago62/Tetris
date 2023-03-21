@@ -23,7 +23,7 @@ public class FichaCadrada extends Ficha {
         cadrados.add(cadrado1);
         cadrados.add(cadrado2);
         cadrados.add(cadrado3);
-        pintarLabels(xogo);
+        pintarLabels();
     }
 
     public boolean rotar() {
